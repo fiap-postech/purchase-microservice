@@ -1,0 +1,15 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: cdn-config-persistent-volume
+  labels:
+    type: local
+    app: cdn
+spec:
+  storageClassName: cdn-config-persistent-volume-storage
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadOnlyMany
+  hostPath:
+    path: "/Users/07.000325/workspace/fiap/tech-challenge/infra/kubernetes/cdn/config/nginx.conf"

@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mysql-initdb-persistent-volume-claim
+  labels:
+    app: mysql
+spec:
+  storageClassName: mysql-initdb-persistent-volume-storage
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Mi
