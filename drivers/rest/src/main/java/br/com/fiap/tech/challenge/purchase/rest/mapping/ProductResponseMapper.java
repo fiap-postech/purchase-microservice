@@ -1,8 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.rest.mapping;
 
-import br.com.fiap.tech.challenge.purchase.application.dto.ComboDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.ProductDTO;
-import br.com.fiap.tech.challenge.purchase.rest.resource.response.ComboResponse;
 import br.com.fiap.tech.challenge.purchase.rest.resource.response.ProductResponse;
 import org.mapstruct.Mapper;
 
