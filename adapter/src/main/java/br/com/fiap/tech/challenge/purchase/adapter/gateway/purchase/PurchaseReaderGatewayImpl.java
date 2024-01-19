@@ -1,11 +1,11 @@
 package br.com.fiap.tech.challenge.purchase.adapter.gateway.purchase;
 
-import br.com.fiap.tech.challenge.purchase.adapter.mapping.PurchaseMapper;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseReaderRepository;
-import br.com.fiap.tech.challenge.purchase.enterprise.entity.Purchase;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseReaderGateway;
+import br.com.fiap.tech.challenge.purchase.application.mapper.PurchaseMapper;
 import br.com.fiap.tech.challenge.purchase.application.util.Page;
 import br.com.fiap.tech.challenge.purchase.application.util.ResponseList;
+import br.com.fiap.tech.challenge.purchase.enterprise.entity.Purchase;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;

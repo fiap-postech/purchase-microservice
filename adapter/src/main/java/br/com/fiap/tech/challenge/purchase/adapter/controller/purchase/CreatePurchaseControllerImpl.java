@@ -1,8 +1,8 @@
 package br.com.fiap.tech.challenge.purchase.adapter.controller.purchase;
 
-import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.presenter.PurchasePresenter;
 import br.com.fiap.tech.challenge.purchase.application.dto.CreatePurchaseDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
 import lombok.RequiredArgsConstructor;
 
