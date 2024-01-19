@@ -10,5 +10,7 @@ dependencies {
     compileOnly sharedLibs.springdoc.openapi.starter.webmvc.ui
 
     compileOnly project(":adapter")
+
+    api libs.rest.common
 }
 

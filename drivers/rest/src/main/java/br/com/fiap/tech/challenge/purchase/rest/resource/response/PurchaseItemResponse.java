@@ -15,7 +15,6 @@ public class PurchaseItemResponse extends Response {
 
     private ProductResponse product;
     private Integer quantity;
-    private BigDecimal fullPrice;
     private BigDecimal price;
     private BigDecimal discount;
 }
