@@ -1,39 +1,43 @@
-buildscript {
-    dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:3.1.0'
-        classpath 'org.flywaydb:flyway-mysql:9.16.3'
-    }
-}
-
 plugins {
-    id 'org.springframework.boot' version '3.1.0'
-    id "org.flywaydb.flyway" version "9.16.3"
-    id 'io.spring.dependency-management' version '1.1.3'
+    id "jacoco"
+    alias(sharedLibs.plugins.spring.boot.plugin)
+    alias(sharedLibs.plugins.flyway.plugin)
+    alias(sharedLibs.plugins.spring.dependency.management.plugin)
+    id "org.sonarqube" version "4.4.1.3373"
+    id 'pl.allegro.tech.build.axion-release' version '1.16.1'
 }
-
-version '1.0.0'
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-logging'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation sharedLibs.spring.boot.starter.web
+    implementation sharedLibs.spring.boot.starter.actuator
+    implementation sharedLibs.spring.boot.starter.validation
+    implementation sharedLibs.spring.boot.starter.logging
+    implementation sharedLibs.spring.boot.starter.data.jpa
 
-    runtimeOnly 'org.flywaydb:flyway-core'
-    runtimeOnly "org.flywaydb:flyway-mysql"
+    runtimeOnly sharedLibs.flyway.mysql
 
     implementation sharedLibs.springdoc.openapi.starter.webmvc.ui
 
-    implementation 'org.springframework.data:spring-data-commons'
+    implementation sharedLibs.spring.data.commons
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation sharedLibs.spring.boot.starter.test
 
     implementation project(":adapter")
     implementation project(":drivers:rest")
     implementation project(":drivers:mysql")
+}
+
+scmVersion {
+    repository {
+        type = "git"
+        remote = "origin"
+    }
+
+    versionIncrementer 'incrementPatch'
+    branchVersionIncrementer = [
+            'hotfix/.*': 'incrementPatch',
+            'feature/.*': 'incrementMinor',
+    ]
 }
 
 java {
@@ -42,15 +46,35 @@ java {
     }
 }
 
+bootJar {
+    archiveFileName = "purchase-service.jar"
+}
+
 springBoot {
     buildInfo {
         properties {
-            name = 'tech challenge api'
+            name = 'Tech Challenge - Purchase API'
             additional = [
                     "description": project?.description ?= "",
-                    "version"    : project.version
+                    "version"    : scmVersion.version
             ]
         }
     }
 }
 
+version = scmVersion.version
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
+sonarqube {
+    properties {
+        property 'sonar.gradle.skipCompile', 'true'
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.organization', 'fiap-postech'
+        property 'sonar.projectKey', 'fiap-postech_purchase-microservice'
+    }
+}

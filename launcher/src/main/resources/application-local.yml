@@ -1,9 +1,9 @@
 server:
-  port: 8688
+  port: 8691
 
 db:
   host: localhost
-  schema: tech_challenge
-  username: sys_tech_challenge
-  password: 6#233zJMNTjkQb#sgps#
+  schema: purchase
+  username: sys_purchase
+  password: purchase_6#233zJMNTjkQb#sgps#
   port: 3366
