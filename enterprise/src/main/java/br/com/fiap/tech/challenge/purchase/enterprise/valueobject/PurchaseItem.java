@@ -1,11 +1,10 @@
 package br.com.fiap.tech.challenge.purchase.enterprise.valueobject;
 
-import br.com.fiap.tech.challenge.enterprise.entity.CartItem;
-import br.com.fiap.tech.challenge.purchase.enterprise.entity.Product;
 import br.com.fiap.tech.challenge.enterprise.valueobject.Discount;
 import br.com.fiap.tech.challenge.enterprise.valueobject.Price;
 import br.com.fiap.tech.challenge.enterprise.valueobject.Quantity;
 import br.com.fiap.tech.challenge.enterprise.valueobject.ValueObject;
+import br.com.fiap.tech.challenge.purchase.enterprise.entity.Product;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -14,6 +13,8 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.io.Serial;
+
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 @Getter
 @Accessors(fluent = true)
@@ -31,48 +32,32 @@ public class PurchaseItem extends ValueObject {
     private final Quantity quantity;
 
     @NotNull
-    private final Price fullPrice;
-
-    @NotNull
+    @Valid
     private final Price price;
 
     @NotNull
+    @Valid
     private final Discount discount;
 
     @Builder(toBuilder = true)
-    public PurchaseItem(@NotNull Product product,
-                        @NotNull Quantity quantity,
-                        @NotNull Price fullPrice,
-                        @NotNull Price price,
-                        @NotNull Discount discount) {
+    public PurchaseItem(@NotNull Product product, @NotNull Quantity quantity, @NotNull Discount discount, Price price) {
         this.product = product;
+        this.price = defaultIfNull(price, this.product.price());
         this.quantity = quantity;
-        this.fullPrice = fullPrice;
-        this.price = price;
         this.discount = discount;
 
         validate();
     }
 
     public Price subTotal() {
-        return product().fullPrice().multiply(quantity());
+        return price().multiply(quantity());
     }
 
     public Discount totalDiscount() {
-        return product().discount().multiply(quantity());
+        return discount().multiply(quantity());
     }
 
     public Price total() {
-        return product().price().multiply(quantity());
-    }
-
-    public static PurchaseItem of(CartItem item) {
-        return PurchaseItem.builder()
-                .discount(item.product().discount())
-                .fullPrice(item.product().fullPrice())
-                .price(item.product().price())
-                .quantity(item.quantity())
-                .product(item.product())
-                .build();
+        return subTotal().subtract(totalDiscount().amount());
     }
 }

@@ -1,13 +1,11 @@
 package br.com.fiap.tech.challenge.purchase.enterprise.entity;
 
 import br.com.fiap.tech.challenge.enterprise.entity.Entity;
-import br.com.fiap.tech.challenge.purchase.enterprise.enums.ProductCategory;
-import br.com.fiap.tech.challenge.enterprise.valueobject.Discount;
-import br.com.fiap.tech.challenge.enterprise.valueobject.Image;
 import br.com.fiap.tech.challenge.enterprise.valueobject.Price;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -18,7 +16,7 @@ import java.util.UUID;
 @Getter
 @Accessors(fluent = true)
 @EqualsAndHashCode(callSuper = true)
-public abstract class Product extends Entity {
+public class Product extends Entity {
     @Serial
     private static final long serialVersionUID = -556035981231420003L;
 
@@ -32,29 +30,14 @@ public abstract class Product extends Entity {
     @Valid
     private final Price price;
 
-    private final boolean enabled;
-
-    @NotNull
-    @Valid
-    private final Image image;
-
-    protected Product(UUID uuid, String name, String description, @NotNull Price price, @NotNull Image image, boolean enabled) {
+    @Builder(toBuilder = true)
+    protected Product(@Builder.ObtainVia(method = "uuid") UUID uuid, String name, String description, @NotNull Price price) {
         super(uuid);
 
         this.name = name;
         this.description = description;
         this.price = price;
-        this.image = image;
-        this.enabled = enabled;
-    }
 
-    public Discount discount() {
-        return Discount.withoutDiscount();
+        validate();
     }
-
-    public Price fullPrice() {
-        return price();
-    }
-
-    public abstract ProductCategory category();
 }

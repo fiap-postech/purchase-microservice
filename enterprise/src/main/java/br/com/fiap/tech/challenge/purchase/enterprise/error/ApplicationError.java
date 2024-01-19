@@ -5,11 +5,15 @@ import br.com.fiap.tech.challenge.exception.error.ErrorType;
 
 import static br.com.fiap.tech.challenge.exception.error.ErrorType.INTERNAL_SERVER_ERROR;
 import static br.com.fiap.tech.challenge.exception.error.ErrorType.INVALID_PARAMETER;
+import static br.com.fiap.tech.challenge.exception.error.ErrorType.NOT_FOUND;
 import static java.lang.Boolean.TRUE;
 
 public enum ApplicationError implements BaseApplicationError {
 
     UNKNOWN_ERROR("AE-001", INTERNAL_SERVER_ERROR, TRUE, "Unexpected error [{}]"),
+    PRODUCT_NOT_FOUND_BY_UUID("AE-002", INVALID_PARAMETER, TRUE, "Product not found [uuid={}]"),
+    CUSTOMER_NOT_FOUND_BY_UUID("AE-005", INVALID_PARAMETER, TRUE, "Customer not found [uuid={}]"),
+    PAYMENT_NOT_FOUND("AE-011", NOT_FOUND, TRUE, "There are no payment registered for purchase [purchaseUUID={}]"),
     PURCHASE_NOT_FOUND_BY_UUID("AE-012", INVALID_PARAMETER, TRUE, "Purchase not found [uuid={}]"),
     ;
 

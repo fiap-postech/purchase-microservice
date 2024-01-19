@@ -65,6 +65,12 @@ public class Purchase extends Entity {
                 .build();
     }
 
+    public Purchase waitMake() {
+        return toBuilder()
+                .status(PurchaseStatus.WAITING_MAKE)
+                .build();
+    }
+
     public Purchase made() {
         return toBuilder()
                 .status(PurchaseStatus.MADE)
