@@ -3,7 +3,7 @@ package br.com.fiap.tech.challenge.purchase.driven.mysql.service;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.mapping.DBPurchaseMapper;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.PurchaseEntity;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PurchaseEntityRepository;
-import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseReaderRepository;
 import br.com.fiap.tech.challenge.exception.ApplicationException;
 import br.com.fiap.tech.challenge.purchase.application.util.Page;

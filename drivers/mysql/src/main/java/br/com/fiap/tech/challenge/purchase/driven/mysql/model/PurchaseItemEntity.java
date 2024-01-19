@@ -48,8 +48,4 @@ public class PurchaseItemEntity extends AuditedEntity {
     @NotNull
     @PositiveOrZero
     private BigDecimal discount;
-
-    public BigDecimal getFullPrice() {
-        return getPrice().add(getDiscount());
-    }
 }

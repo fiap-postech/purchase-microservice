@@ -6,7 +6,7 @@ import br.com.fiap.tech.challenge.purchase.driven.mysql.model.PaymentEntity;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.PurchaseEntity;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PaymentEntityRepository;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PurchaseEntityRepository;
-import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseWriterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

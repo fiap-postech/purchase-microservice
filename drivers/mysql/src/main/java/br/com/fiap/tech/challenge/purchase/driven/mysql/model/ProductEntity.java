@@ -1,10 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.driven.mysql.model;
 
-import br.com.fiap.tech.challenge.purchase.enterprise.enums.ProductCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
@@ -38,14 +35,4 @@ public class ProductEntity extends JPAEntity {
     @NotNull
     @PositiveOrZero
     private BigDecimal price;
-
-    @NotBlank
-    @Column(columnDefinition = "text")
-    private String image;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private ProductCategory category;
-
-    private boolean enabled;
 }

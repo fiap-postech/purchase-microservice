@@ -6,7 +6,7 @@ import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.CustomerEntit
 import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PaymentEntityRepository;
 import br.com.fiap.tech.challenge.purchase.application.dto.CustomerDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
-import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.exception.ApplicationException;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
