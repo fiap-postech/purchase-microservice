@@ -12,6 +12,8 @@ public enum ApplicationError implements BaseApplicationError {
 
     UNKNOWN_ERROR("AE-001", INTERNAL_SERVER_ERROR, TRUE, "Unexpected error [{}]"),
     PRODUCT_NOT_FOUND_BY_UUID("AE-002", INVALID_PARAMETER, TRUE, "Product not found [uuid={}]"),
+
+    PRODUCT_PRICES_IS_INVALID("AE-003", INVALID_PARAMETER, TRUE, "It is not possible to dismember the combo product and keep offered amount [uuid={}]"),
     CUSTOMER_NOT_FOUND_BY_UUID("AE-005", INVALID_PARAMETER, TRUE, "Customer not found [uuid={}]"),
     PAYMENT_NOT_FOUND("AE-011", NOT_FOUND, TRUE, "There are no payment registered for purchase [purchaseUUID={}]"),
     PURCHASE_NOT_FOUND_BY_UUID("AE-012", INVALID_PARAMETER, TRUE, "Purchase not found [uuid={}]"),
