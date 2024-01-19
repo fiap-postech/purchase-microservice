@@ -1,8 +1,8 @@
 package br.com.fiap.tech.challenge.purchase.application.mapper;
 
-import br.com.fiap.tech.challenge.adapter.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.CustomerDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseItemDTO;
 import br.com.fiap.tech.challenge.purchase.enterprise.entity.Purchase;
 import org.mapstruct.Mapper;

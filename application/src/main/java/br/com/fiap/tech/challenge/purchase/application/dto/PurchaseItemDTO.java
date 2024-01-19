@@ -13,7 +13,6 @@ public class PurchaseItemDTO implements Serializable {
 
     private ProductDTO product;
     private Integer quantity;
-    private BigDecimal fullPrice;
     private BigDecimal price;
     private BigDecimal discount;
 }

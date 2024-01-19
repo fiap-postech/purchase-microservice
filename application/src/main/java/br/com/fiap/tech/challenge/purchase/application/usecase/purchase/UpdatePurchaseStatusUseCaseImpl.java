@@ -20,15 +20,16 @@ class UpdatePurchaseStatusUseCaseImpl implements UpdatePurchaseStatusUseCase {
 
     @Override
     public Purchase update(Purchase purchase, PurchaseStatus status) {
-        var updatedPurchase = switch (status) {
-            case WAITING_PAID -> purchase;
+        return gateway.write(updateStatus(purchase, status));
+    }
+
+    private Purchase updateStatus(Purchase purchase, PurchaseStatus status) {
+        return switch (status) {
             case PAID -> purchase.paid();
+            case WAITING_MAKE -> purchase.waitMake();
             case MAKING -> purchase.making();
             case MADE -> purchase.made();
             case DELIVERED -> purchase.delivered();
-            case FINISHED -> purchase.finished();
         };
-
-        return gateway.write(updatedPurchase);
     }
 }

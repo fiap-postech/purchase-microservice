@@ -19,7 +19,6 @@ public interface PaymentMapper {
     @Mapping(target = "date", expression = "java(payment.date())")
     @Mapping(target = "status", expression = "java(payment.status())")
     @Mapping(target = "method", expression = "java(payment.method())")
-    @Mapping(target = "urlPayment", expression = "java(payment.urlPayment())")
     PaymentDTO toDTO(Payment payment);
 
     @Mapping(target = "uuid", source = "id", qualifiedByName = "generateUuid")

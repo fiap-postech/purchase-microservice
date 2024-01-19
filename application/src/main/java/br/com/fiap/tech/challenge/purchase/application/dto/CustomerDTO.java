@@ -15,4 +15,5 @@ public class CustomerDTO implements Serializable {
     private String email;
     private String document;
     private boolean enabled;
+
 }
