@@ -46,3 +46,17 @@ create table purchase_item(
     constraint fk_purchase_id foreign key (purchase_id) references  purchase(id),
     constraint pk_purchase_item primary key (purchase_id, product_id)
 );
+
+create table payment(
+    id bigint auto_increment not null primary key,
+    uuid varchar(36) not null unique,
+    purchase_id bigint not null,
+    method enum('MERCADO_PAGO') not null,
+    date date not null default (curdate()),
+    status enum('CREATED', 'PAID', 'ERROR') not null default 'PAID',
+    amount numeric(12,2) not null,
+    created datetime not null,
+    last_updated datetime not null,
+    version integer not null,
+    constraint fk_payment_purchase_id foreign key (purchase_id) references purchase(id)
+);
