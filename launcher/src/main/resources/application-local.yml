@@ -13,6 +13,9 @@ aws:
     sqs:
       payment-done:
         queue: local-purchase-payment-done-queue
+    sns:
+      purchase-created:
+        topic: local-purchase-created-topic
 
 spring:
   cloud:

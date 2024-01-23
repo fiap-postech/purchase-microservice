@@ -1,5 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.launcher.configuration;
 
+import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseReaderGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseWriterGateway;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 public class UseCaseConfiguration {
 
     @Bean
-    public CreatePurchaseUseCase createPurchaseUseCase(PurchaseWriterGateway writer) {
-        return PurchaseUseCaseFactory.createPurchaseUseCase(writer);
+    public CreatePurchaseUseCase createPurchaseUseCase(PurchaseWriterGateway writerGateway, PurchaseCreatedGateway createdGateway) {
+        return PurchaseUseCaseFactory.createPurchaseUseCase(writerGateway, createdGateway);
     }
 
     @Bean
