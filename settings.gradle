@@ -34,3 +34,6 @@ findProject(':drivers:mysql')?.name = 'mysql'
 
 include 'drivers:rest'
 findProject(':drivers:rest')?.name = 'rest'
+
+include 'drivers:payment-done-consumer'
+findProject(':drivers:payment-done-consumer')?.name = 'payment-done-consumer'

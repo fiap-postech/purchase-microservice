@@ -7,3 +7,16 @@ db:
   username: sys_purchase
   password: purchase_6#233zJMNTjkQb#sgps#
   port: 3366
+
+aws:
+  resources:
+    sqs:
+      payment-done:
+        queue: local-purchase-payment-done-queue
+
+spring:
+  cloud:
+    aws:
+      endpoint: http://localhost:4566
+      region:
+        static: us-east-1
