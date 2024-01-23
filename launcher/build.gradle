@@ -8,23 +8,23 @@ plugins {
 }
 
 dependencies {
-    implementation sharedLibs.spring.boot.starter.web
-    implementation sharedLibs.spring.boot.starter.actuator
-    implementation sharedLibs.spring.boot.starter.validation
-    implementation sharedLibs.spring.boot.starter.logging
+    implementation sharedLibs.spring.data.commons
     implementation sharedLibs.spring.boot.starter.data.jpa
-
-    runtimeOnly sharedLibs.flyway.mysql
-
+    implementation sharedLibs.spring.boot.starter.actuator
+    implementation sharedLibs.spring.boot.starter.logging
+    implementation sharedLibs.spring.boot.starter.validation
+    implementation sharedLibs.spring.boot.starter.web
     implementation sharedLibs.springdoc.openapi.starter.webmvc.ui
 
-    implementation sharedLibs.spring.data.commons
+
+    runtimeOnly sharedLibs.flyway.mysql
 
     testImplementation sharedLibs.spring.boot.starter.test
 
     implementation project(":adapter")
     implementation project(":drivers:rest")
     implementation project(":drivers:mysql")
+    implementation project(":drivers:payment-done-consumer")
 }
 
 scmVersion {
