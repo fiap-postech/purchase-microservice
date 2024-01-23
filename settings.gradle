@@ -37,3 +37,6 @@ findProject(':drivers:rest')?.name = 'rest'
 
 include 'drivers:payment-done-consumer'
 findProject(':drivers:payment-done-consumer')?.name = 'payment-done-consumer'
+
+include 'drivers:purchase-created-producer'
+findProject(':drivers:purchase-created-producer')?.name = 'purchase-created-producer'
