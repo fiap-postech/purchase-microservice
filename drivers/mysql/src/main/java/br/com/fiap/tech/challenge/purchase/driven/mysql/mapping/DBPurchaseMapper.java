@@ -1,19 +1,18 @@
 package br.com.fiap.tech.challenge.purchase.driven.mysql.mapping;
 
+import br.com.fiap.tech.challenge.exception.ApplicationException;
+import br.com.fiap.tech.challenge.purchase.application.dto.CustomerDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.CustomerEntity;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.PurchaseEntity;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.CustomerEntityRepository;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PaymentEntityRepository;
-import br.com.fiap.tech.challenge.purchase.application.dto.CustomerDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
-import br.com.fiap.tech.challenge.exception.ApplicationException;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static br.com.fiap.tech.challenge.purchase.enterprise.error.ApplicationError.CUSTOMER_NOT_FOUND_BY_UUID;
 import static br.com.fiap.tech.challenge.purchase.enterprise.error.ApplicationError.PAYMENT_NOT_FOUND;
 import static java.util.Objects.isNull;
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
@@ -29,6 +28,9 @@ public abstract class DBPurchaseMapper {
 
     @Autowired
     private DBPaymentMapper paymentMapper;
+
+    @Autowired
+    private DBCustomerMapper customerMapper;
 
     @Mapping(target = "uuid", source = "id")
     @Mapping(target = "customer", source = "customer", qualifiedByName = "getCustomerEntity")
@@ -55,7 +57,7 @@ public abstract class DBPurchaseMapper {
     CustomerEntity getCustomerEntity(CustomerDTO source) {
         if (isNull(source)) return null;
 
-        return customerRepository.findByUuid(source.getId())
-                .orElseThrow(() -> new ApplicationException(CUSTOMER_NOT_FOUND_BY_UUID, source.getId()));
+        return customerRepository.findByDocument(source.getDocument())
+                .orElseGet(() -> customerRepository.save(customerMapper.toEntity(source)));
     }
 }
