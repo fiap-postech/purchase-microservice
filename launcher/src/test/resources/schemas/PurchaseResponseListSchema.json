@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "number": {
+      "type": "number"
+    },
+    "size": {
+      "type": "number"
+    },
+    "numberOfElements": {
+      "type": "number"
+    },
+    "totalElements": {
+      "type": "number"
+    },
+    "content": {
+      "type": "array",
+      "items": {
+        "$ref": "PurchaseResponseSchema.json"
+      }
+    }
+  },
+  "required": [
+    "number",
+    "size",
+    "numberOfElements",
+    "totalElements",
+    "content"
+  ]
+}

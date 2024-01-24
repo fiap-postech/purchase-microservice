@@ -20,7 +20,7 @@ public class GetPurchaseResource implements GetPurchaseResourceDoc {
     private final FindPurchaseByUUIDController findPurchaseByUUIDController;
 
     @GetMapping("/{uuid}")
-    public PurchaseResponse getByUUID(@PathVariable String uuid) {
+    public PurchaseResponse getByUUID(@PathVariable(name = "uuid") String uuid) {
         return purchaseResponseMapper.toResponse(findPurchaseByUUIDController.get(uuid));
     }
 

@@ -20,6 +20,5 @@ public class PaymentResponse extends Response {
     private LocalDate date;
     private PaymentStatus status;
     private PaymentMethod method;
-    private String urlPayment;
     private BigDecimal amount;
 }

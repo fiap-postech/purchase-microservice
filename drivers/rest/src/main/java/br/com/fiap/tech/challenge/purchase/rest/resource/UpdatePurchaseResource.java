@@ -21,7 +21,8 @@ public class UpdatePurchaseResource implements UpdatePurchaseResourceDoc {
     private final UpdatePurchaseStatusController updatePurchaseStatusController;
 
     @PatchMapping("/{uuid}/{status}")
-    public PurchaseResponse updatePurchaseStatus(@PathVariable String uuid, @PathVariable PurchaseStatus status) {
+    public PurchaseResponse updatePurchaseStatus(@PathVariable(name = "uuid") String uuid,
+                                                 @PathVariable(name = "status") PurchaseStatus status) {
         return purchaseResponseMapper.toResponse(updatePurchaseStatusController.update(uuid, status));
     }
 

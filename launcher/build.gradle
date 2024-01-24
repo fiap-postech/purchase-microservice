@@ -32,7 +32,6 @@ dependencies {
     testImplementation sharedLibs.testcontainers.junit.jupiter
     testImplementation sharedLibs.testcontainers.mysql
     testImplementation sharedLibs.testcontainers.localstack
-    testImplementation 'org.awaitility:awaitility:4.2.0'
 
 }
 
