@@ -8,6 +8,14 @@ plugins {
 }
 
 dependencies {
+    runtimeOnly sharedLibs.flyway.mysql
+
+    implementation project(":adapter")
+    implementation project(":drivers:rest")
+    implementation project(":drivers:mysql")
+    implementation project(":drivers:payment-done-consumer")
+    implementation project(":drivers:purchase-created-producer")
+
     implementation sharedLibs.spring.data.commons
     implementation sharedLibs.spring.boot.starter.data.jpa
     implementation sharedLibs.spring.boot.starter.actuator
@@ -16,16 +24,15 @@ dependencies {
     implementation sharedLibs.spring.boot.starter.web
     implementation sharedLibs.springdoc.openapi.starter.webmvc.ui
 
-
-    runtimeOnly sharedLibs.flyway.mysql
-
     testImplementation sharedLibs.spring.boot.starter.test
+    testImplementation sharedLibs.rest.assured
+    testImplementation sharedLibs.json.schema.validator
+    testImplementation sharedLibs.instancio.junit
+    testImplementation sharedLibs.instancio.core
+    testImplementation sharedLibs.testcontainers.junit.jupiter
+    testImplementation sharedLibs.testcontainers.mysql
+    testImplementation sharedLibs.testcontainers.localstack
 
-    implementation project(":adapter")
-    implementation project(":drivers:rest")
-    implementation project(":drivers:mysql")
-    implementation project(":drivers:payment-done-consumer")
-    implementation project(":drivers:purchase-created-producer")
 }
 
 scmVersion {

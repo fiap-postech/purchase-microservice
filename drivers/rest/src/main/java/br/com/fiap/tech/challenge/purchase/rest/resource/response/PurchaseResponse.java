@@ -15,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Schema(description = "Representação de um Pedido")
-public class PurchseResponse extends Response {
+public class PurchaseResponse extends Response {
     @Serial
     private static final long serialVersionUID = -477119349237609062L;
 

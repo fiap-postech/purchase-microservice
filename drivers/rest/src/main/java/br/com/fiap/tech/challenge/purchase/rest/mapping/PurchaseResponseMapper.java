@@ -1,7 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.rest.mapping;
 
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
-import br.com.fiap.tech.challenge.purchase.rest.resource.response.PurchseResponse;
+import br.com.fiap.tech.challenge.purchase.rest.resource.response.PurchaseResponse;
 import org.mapstruct.Mapper;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
@@ -12,5 +12,5 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 )
 public interface PurchaseResponseMapper {
 
-    PurchseResponse toResponse(PurchaseDTO dto);
+    PurchaseResponse toResponse(PurchaseDTO dto);
 }
