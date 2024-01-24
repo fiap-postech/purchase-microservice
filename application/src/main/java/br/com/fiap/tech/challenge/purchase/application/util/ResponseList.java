@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.function.Function;
 
+import static java.util.Collections.emptyList;
+
 public record ResponseList<T extends Serializable>(
         Integer number,
         Integer size,
@@ -22,6 +24,16 @@ public record ResponseList<T extends Serializable>(
                 list.numberOfElements(),
                 list.totalElements(),
                 list.content().stream().map(parser).toList()
+        );
+    }
+
+    public static <T extends Serializable> ResponseList<T> empty(){
+        return new ResponseList<>(
+                0,
+                0,
+                0,
+                0L,
+                emptyList()
         );
     }
 }
