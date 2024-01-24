@@ -60,7 +60,6 @@ public class Purchase extends Entity {
 
     public Purchase paid() {
         return toBuilder()
-                .payment(payment.paid())
                 .status(PurchaseStatus.PAID)
                 .build();
     }
