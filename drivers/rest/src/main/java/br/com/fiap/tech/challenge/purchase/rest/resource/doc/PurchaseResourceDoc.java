@@ -1,6 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.rest.resource.doc;
 
-import br.com.fiap.tech.challenge.purchase.rest.resource.response.PurchseResponse;
+import br.com.fiap.tech.challenge.purchase.rest.resource.response.PurchaseResponse;
 import br.com.fiap.tech.challenge.purchase.application.util.ResponseList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,15 +20,15 @@ public interface PurchaseResourceDoc {
                     @ApiResponse(responseCode = "200", description = "OK - Retorno em caso de sucesso todos os pedidos de acordo com a requisição", useReturnTypeSchema = true)
             }
     )
-    ResponseList<PurchseResponse> getAllAvailable(Pageable pageable);
+    ResponseList<PurchaseResponse> getAllAvailable(Pageable pageable);
 
     @Operation(
             summary = "Retorna um pedido pelo UUID",
             description = "Busca o pedido registrado no banco de dados pelo UUID",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "OK - Retorno em caso de sucesso um pedido de acordo com a requisição", content = { @Content(schema = @Schema(implementation = PurchseResponse.class), mediaType = "application/json") }),
+                    @ApiResponse(responseCode = "200", description = "OK - Retorno em caso de sucesso um pedido de acordo com a requisição", content = { @Content(schema = @Schema(implementation = PurchaseResponse.class), mediaType = "application/json") }),
                     @ApiResponse(responseCode = "400", description = "O UUID do pedido fornecido não foi encontrado", content = { @Content(schema = @Schema()) })
             }
     )
-    PurchseResponse getByUUID(@Parameter(description = "UUID do pedido a ser pesquisado", required = true) String uuid);
+    PurchaseResponse getByUUID(@Parameter(description = "UUID do pedido a ser pesquisado", required = true) String uuid);
 }

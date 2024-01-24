@@ -7,7 +7,7 @@ import br.com.fiap.tech.challenge.purchase.application.util.ResponseList;
 import br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus;
 import br.com.fiap.tech.challenge.purchase.rest.mapping.PurchaseResponseMapper;
 import br.com.fiap.tech.challenge.purchase.rest.resource.doc.PurchaseResourceDoc;
-import br.com.fiap.tech.challenge.purchase.rest.resource.response.PurchseResponse;
+import br.com.fiap.tech.challenge.purchase.rest.resource.response.PurchaseResponse;
 import br.com.fiap.tech.challenge.purchase.rest.util.Pages;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -30,7 +30,7 @@ public class PurchaseResource implements PurchaseResourceDoc {
     private final UpdatePurchaseStatusController updatePurchaseStatusController;
 
     @GetMapping
-    public ResponseList<PurchseResponse> getAllAvailable(@ParameterObject Pageable pageable) {
+    public ResponseList<PurchaseResponse> getAllAvailable(@ParameterObject Pageable pageable) {
         return ResponseList.from(
                 findAllPurchasesController.list(Pages.of(pageable)),
                 purchaseResponseMapper::toResponse
@@ -38,12 +38,12 @@ public class PurchaseResource implements PurchaseResourceDoc {
     }
 
     @GetMapping("/{uuid}")
-    public PurchseResponse getByUUID(@PathVariable String uuid) {
+    public PurchaseResponse getByUUID(@PathVariable String uuid) {
         return purchaseResponseMapper.toResponse(findPurchaseByUUIDController.get(uuid));
     }
 
     @PatchMapping("/{uuid}/{status}")
-    public PurchseResponse updatePurchaseStatus(@PathVariable String uuid, @PathVariable PurchaseStatus status) {
+    public PurchaseResponse updatePurchaseStatus(@PathVariable String uuid, @PathVariable PurchaseStatus status) {
         return purchaseResponseMapper.toResponse(updatePurchaseStatusController.update(uuid, status));
     }
 }
