@@ -1,0 +1,25 @@
+server:
+  port: 8691
+
+db:
+  host: localhost
+  schema: purchase
+  username: tech_challenge
+  password: 102030
+  port: 3366
+
+aws:
+  resources:
+    sqs:
+      payment-done:
+        queue: local-purchase-payment-done-queue
+    sns:
+      purchase-created:
+        topic: local-purchase-created-topic
+
+spring:
+  cloud:
+    aws:
+      endpoint: http://localhost:4566
+      region:
+        static: us-east-1
