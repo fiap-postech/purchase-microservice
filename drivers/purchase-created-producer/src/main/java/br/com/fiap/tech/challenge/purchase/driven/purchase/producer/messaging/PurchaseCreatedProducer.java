@@ -2,6 +2,7 @@ package br.com.fiap.tech.challenge.purchase.driven.purchase.producer.messaging;
 
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseCreatedRepository;
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimplePurchaseDTO;
 import io.awspring.cloud.sns.core.SnsTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,7 @@ public class PurchaseCreatedProducer implements PurchaseCreatedRepository {
     private final SnsTemplate sns;
 
     @Override
-    public void notify(PurchaseDTO dto) {
-        sns.send(topicName, MessageBuilder.withPayload(dto).build());
+    public void notify(SimplePurchaseDTO dto) {
+        sns.convertAndSend(topicName, dto);
     }
 }

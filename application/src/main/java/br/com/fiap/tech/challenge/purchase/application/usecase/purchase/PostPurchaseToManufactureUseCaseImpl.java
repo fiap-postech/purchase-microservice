@@ -14,14 +14,6 @@ class PostPurchaseToManufactureUseCaseImpl implements PostPurchaseToManufactureU
 
     @Override
     public void post(Purchase purchase) {
-        var dto = PurchaseMapper.INSTANCE.toSimpleDTO(purchase);
-        dto.setCode(generateCode());
-
         gateway.notify(purchase);
-    }
-
-
-    private String generateCode() {
-        return UUID.randomUUID().toString().substring(0, 4);
     }
 }

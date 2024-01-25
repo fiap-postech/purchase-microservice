@@ -15,7 +15,7 @@ class CreatePurchaseUseCaseImpl implements CreatePurchaseUseCase {
 
     @Override
     public Purchase create(CreatePurchaseDTO dto) {
-        return writerGateway.write(build(dto));
+        return writerGateway.write(build(dto).waitMake());
     }
 
     private Purchase build(CreatePurchaseDTO dto) {
