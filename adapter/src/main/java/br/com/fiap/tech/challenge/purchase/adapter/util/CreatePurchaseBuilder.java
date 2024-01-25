@@ -7,8 +7,8 @@ import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseItemInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.mapping.CreatePurchaseDTOMapping;
 import br.com.fiap.tech.challenge.purchase.application.dto.CreatePurchaseDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.ProductDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseItemDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullProductDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullPurchaseItemDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -34,13 +34,13 @@ public class CreatePurchaseBuilder {
         return purchaseDTO;
     }
 
-    private List<PurchaseItemDTO> buildItems(List<PurchaseItemInputDTO> items) {
+    private List<FullPurchaseItemDTO> buildItems(List<PurchaseItemInputDTO> items) {
         return items.stream()
                 .flatMap(this::dismember)
                 .toList();
     }
 
-    private Stream<PurchaseItemDTO> dismember(PurchaseItemInputDTO item) {
+    private Stream<FullPurchaseItemDTO> dismember(PurchaseItemInputDTO item) {
         if (!(item.getProduct() instanceof ComboInputDTO combo)) {
             return Stream.of(buildItem(item));
         }
@@ -55,7 +55,7 @@ public class CreatePurchaseBuilder {
 
         products.sort(Comparator.comparing(ProductInputDTO::getPrice));
 
-        var result = new ArrayList<PurchaseItemDTO>();
+        var result = new ArrayList<FullPurchaseItemDTO>();
 
         for (var product : products) {
             if (price.compareTo(targetPrice) == 0) {
@@ -82,24 +82,24 @@ public class CreatePurchaseBuilder {
         return result.stream();
     }
 
-    private PurchaseItemDTO buildItem(PurchaseItemInputDTO dto) {
-        return new PurchaseItemDTO()
+    private FullPurchaseItemDTO buildItem(PurchaseItemInputDTO dto) {
+        return new FullPurchaseItemDTO()
                 .setDiscount(dto.getDiscount())
                 .setPrice(dto.getPrice())
                 .setQuantity(dto.getQuantity())
                 .setProduct(buildProduct(dto.getProduct()));
     }
 
-    private PurchaseItemDTO buildItem(PurchaseItemInputDTO dto, ProductInputDTO product, BigDecimal discount) {
-        return new PurchaseItemDTO()
+    private FullPurchaseItemDTO buildItem(PurchaseItemInputDTO dto, ProductInputDTO product, BigDecimal discount) {
+        return new FullPurchaseItemDTO()
                 .setDiscount(discount)
                 .setPrice(product.getPrice())
                 .setQuantity(dto.getQuantity())
                 .setProduct(buildProduct(product));
     }
 
-    private ProductDTO buildProduct(ProductInputDTO dto) {
-        return new ProductDTO()
+    private FullProductDTO buildProduct(ProductInputDTO dto) {
+        return new FullProductDTO()
                 .setPrice(dto.getPrice())
                 .setDescription(dto.getDescription())
                 .setId(dto.getId())

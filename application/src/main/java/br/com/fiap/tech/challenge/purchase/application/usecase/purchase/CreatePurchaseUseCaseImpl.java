@@ -1,7 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.application.usecase.purchase;
 
 import br.com.fiap.tech.challenge.purchase.application.dto.CreatePurchaseDTO;
-import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseWriterGateway;
 import br.com.fiap.tech.challenge.purchase.application.mapper.CustomerMapper;
 import br.com.fiap.tech.challenge.purchase.application.mapper.PaymentMapper;
@@ -13,14 +12,10 @@ import lombok.RequiredArgsConstructor;
 class CreatePurchaseUseCaseImpl implements CreatePurchaseUseCase {
 
     private final PurchaseWriterGateway writerGateway;
-    private final PurchaseCreatedGateway createdGateway;
 
     @Override
     public Purchase create(CreatePurchaseDTO dto) {
-        var purchase = writerGateway.write(build(dto));
-
-        createdGateway.notify(purchase);
-        return purchase;
+        return writerGateway.write(build(dto));
     }
 
     private Purchase build(CreatePurchaseDTO dto) {

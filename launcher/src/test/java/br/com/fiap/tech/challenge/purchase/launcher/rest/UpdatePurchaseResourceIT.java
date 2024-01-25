@@ -54,7 +54,7 @@ class UpdatePurchaseResourceIT {
         given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
             .when()
-                .patch("/purchase/{id}/{status}", UUID.randomUUID().toString(), PurchaseStatus.WAITING_MAKE)
+                .put("/purchase/{id}/{status}", UUID.randomUUID().toString(), PurchaseStatus.WAITING_MAKE)
             .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/APIErrorSchema.json"));
@@ -67,7 +67,7 @@ class UpdatePurchaseResourceIT {
         given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
             .when()
-                .patch("/purchase/{id}/{status}", "086dd216-2ef7-432c-a27b-4c840624c98d", status)
+                .put("/purchase/{id}/{status}", "086dd216-2ef7-432c-a27b-4c840624c98d", status)
             .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("./schemas/PurchaseResponseSchema.json"));

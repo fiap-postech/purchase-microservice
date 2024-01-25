@@ -31,14 +31,11 @@ class CreatePurchaseUseCaseImplTest {
     @Mock
     private PurchaseWriterGateway writerGateway;
 
-    @Mock
-    private PurchaseCreatedGateway createdGateway;
-
     private CreatePurchaseUseCase useCase;
 
     @BeforeEach
     void setup() {
-        useCase = new CreatePurchaseUseCaseImpl(writerGateway, createdGateway);
+        useCase = new CreatePurchaseUseCaseImpl(writerGateway);
     }
 
     @ParameterizedTest
@@ -51,7 +48,6 @@ class CreatePurchaseUseCaseImplTest {
 
         useCase.create(request);
 
-        verify(createdGateway).notify(any(Purchase.class));
         verify(writerGateway).write(any(Purchase.class));
     }
 

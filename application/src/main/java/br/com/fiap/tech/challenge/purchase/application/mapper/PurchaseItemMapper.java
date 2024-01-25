@@ -1,7 +1,9 @@
 package br.com.fiap.tech.challenge.purchase.application.mapper;
 
-import br.com.fiap.tech.challenge.purchase.application.dto.ProductDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseItemDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullProductDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullPurchaseItemDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimpleProductDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimplePurchaseItemDTO;
 import br.com.fiap.tech.challenge.purchase.enterprise.valueobject.PurchaseItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,17 +24,26 @@ public interface PurchaseItemMapper {
     @Mapping(target = "discount", source = "item", qualifiedByName = "getDiscountAsBigDecimal")
     @Mapping(target = "price", source = "item", qualifiedByName = "getPriceAsBigDecimal")
     @Mapping(target = "quantity", source = "item", qualifiedByName = "getQuantityInt")
-    PurchaseItemDTO toDTO(PurchaseItem item);
+    FullPurchaseItemDTO toDTO(PurchaseItem item);
+
+    @Mapping(target = "product", source = "item", qualifiedByName = "getSimpleProductDTO")
+    @Mapping(target = "quantity", source = "item", qualifiedByName = "getQuantityInt")
+    SimplePurchaseItemDTO toSimpleDTO(PurchaseItem item);
 
     @Mapping(target = "product", source = "product")
     @Mapping(target = "price", source = "price", qualifiedByName = "getPrice")
     @Mapping(target = "discount", source = "discount", qualifiedByName = "getDiscount")
     @Mapping(target = "quantity", source = "quantity", qualifiedByName = "getQuantityVO")
-    PurchaseItem toDomain(PurchaseItemDTO dto);
+    PurchaseItem toDomain(FullPurchaseItemDTO dto);
 
     @Named("getProductDTO")
-    static ProductDTO getProductDTO(PurchaseItem item) {
+    static FullProductDTO getProductDTO(PurchaseItem item) {
         return ProductMapper.INSTANCE.toDTO(item.product());
+    }
+
+    @Named("getSimpleProductDTO")
+    static SimpleProductDTO getSimpleProductDTO(PurchaseItem item) {
+        return ProductMapper.INSTANCE.toSimpleDTO(item.product());
     }
 
     @Named("getQuantityInt")

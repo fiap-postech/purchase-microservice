@@ -1,6 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.launcher.fixture;
 
-import br.com.fiap.tech.challenge.purchase.application.dto.ProductDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullProductDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.instancio.Instancio;
@@ -13,27 +13,27 @@ import static org.instancio.Select.field;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductDTOFixture {
 
-    public static Model<ProductDTO> beverageDTOModel() {
-        return Instancio.of(ProductDTO.class)
-                .generate(field(ProductDTO::getId), gen -> gen.text().uuid())
-                .set(field(ProductDTO::getName), "Bebida")
-                .set(field(ProductDTO::getPrice), BigDecimal.valueOf(5.00))
+    public static Model<FullProductDTO> beverageDTOModel() {
+        return Instancio.of(FullProductDTO.class)
+                .generate(field(FullProductDTO::getId), gen -> gen.text().uuid())
+                .set(field(FullProductDTO::getName), "Bebida")
+                .set(field(FullProductDTO::getPrice), BigDecimal.valueOf(5.00))
                 .toModel();
     }
 
-    public static Model<ProductDTO> sideDishDTOModel() {
-        return Instancio.of(ProductDTO.class)
-                .generate(field(ProductDTO::getId), gen -> gen.text().uuid())
-                .set(field(ProductDTO::getName), "Acompanhamento")
-                .set(field(ProductDTO::getPrice), BigDecimal.valueOf(3.00))
+    public static Model<FullProductDTO> sideDishDTOModel() {
+        return Instancio.of(FullProductDTO.class)
+                .generate(field(FullProductDTO::getId), gen -> gen.text().uuid())
+                .set(field(FullProductDTO::getName), "Acompanhamento")
+                .set(field(FullProductDTO::getPrice), BigDecimal.valueOf(3.00))
                 .toModel();
     }
 
-    public static Model<ProductDTO> sandwichDTOModel() {
-        return Instancio.of(ProductDTO.class)
-                .generate(field(ProductDTO::getId), gen -> gen.text().uuid())
-                .set(field(ProductDTO::getName), "Lanche")
-                .set(field(ProductDTO::getPrice), BigDecimal.valueOf(17.00))
+    public static Model<FullProductDTO> sandwichDTOModel() {
+        return Instancio.of(FullProductDTO.class)
+                .generate(field(FullProductDTO::getId), gen -> gen.text().uuid())
+                .set(field(FullProductDTO::getName), "Lanche")
+                .set(field(FullProductDTO::getPrice), BigDecimal.valueOf(17.00))
                 .toModel();
     }
 }

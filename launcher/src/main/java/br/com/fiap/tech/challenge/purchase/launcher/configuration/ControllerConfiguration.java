@@ -9,6 +9,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.presenter.PurchasePresenter;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindAllPurchasesUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurchaseByUUIDUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseToManufactureUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePurchaseStatusUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 public class ControllerConfiguration {
 
     @Bean
-    public CreatePurchaseController createPurchaseController(CreatePurchaseUseCase useCase, PurchasePresenter presenter) {
-        return PurchaseControllerFactory.createPurchaseController(useCase, presenter);
+    public CreatePurchaseController createPurchaseController(CreatePurchaseUseCase createUseCase, PostPurchaseToManufactureUseCase postToManufactureUseCase, PurchasePresenter presenter) {
+        return PurchaseControllerFactory.createPurchaseController(createUseCase, postToManufactureUseCase, presenter);
     }
 
     @Bean

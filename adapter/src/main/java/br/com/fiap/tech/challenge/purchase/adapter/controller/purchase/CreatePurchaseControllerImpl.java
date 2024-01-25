@@ -6,17 +6,22 @@ import br.com.fiap.tech.challenge.purchase.adapter.util.CreatePurchaseBuilder;
 import br.com.fiap.tech.challenge.purchase.application.dto.CreatePurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseToManufactureUseCase;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 class CreatePurchaseControllerImpl implements CreatePurchaseController {
 
-    private final CreatePurchaseUseCase useCase;
+    private final CreatePurchaseUseCase createUseCase;
+    private final PostPurchaseToManufactureUseCase postToManufactureUseCase;
     private final PurchasePresenter presenter;
 
     @Override
     public PurchaseDTO create(CreatePurchaseDTO createPurchaseDTO) {
-        return presenter.present(useCase.create(createPurchaseDTO));
+        var purchase = createUseCase.create(createPurchaseDTO);
+
+        postToManufactureUseCase.post(purchase);
+        return presenter.present(purchase);
     }
 
     @Override

@@ -1,9 +1,12 @@
 package br.com.fiap.tech.challenge.purchase.application.mapper;
 
-import br.com.fiap.tech.challenge.purchase.application.dto.CustomerDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullCustomerDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimpleCustomerDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimplePurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseItemDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullPurchaseItemDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimplePurchaseItemDTO;
 import br.com.fiap.tech.challenge.purchase.enterprise.entity.Purchase;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -28,15 +31,34 @@ public interface PurchaseMapper {
     @Mapping(target = "payment", source = "purchase", qualifiedByName = "getPaymentDTO")
     PurchaseDTO toDTO(Purchase purchase);
 
+    @Mapping(target = "id", expression = "java(purchase.uuid().toString())")
+    @Mapping(target = "customer", source = "purchase", qualifiedByName = "getSimpleCustomerDTO")
+    @Mapping(target = "status", expression = "java(purchase.status())")
+    @Mapping(target = "date", expression = "java(purchase.date())")
+    @Mapping(target = "items", source = "purchase", qualifiedByName = "getSimplePurchaseItems")
+    SimplePurchaseDTO toSimpleDTO(Purchase purchase);
+
     @Named("getCustomerDTO")
-    static CustomerDTO getCustomerDTO(Purchase purchase) {
+    static FullCustomerDTO getCustomerDTO(Purchase purchase) {
         return CustomerMapper.INSTANCE.toDTO(purchase.customer());
     }
 
+    @Named("getSimpleCustomerDTO")
+    static SimpleCustomerDTO getSimpleCustomerDTO(Purchase purchase) {
+        return CustomerMapper.INSTANCE.toSimpleDTO(purchase.customer());
+    }
+
     @Named("getPurchaseItems")
-    static List<PurchaseItemDTO> getPurchaseItems(Purchase purchase) {
+    static List<FullPurchaseItemDTO> getPurchaseItems(Purchase purchase) {
         return purchase.items().stream()
                 .map(PurchaseItemMapper.INSTANCE::toDTO)
+                .toList();
+    }
+
+    @Named("getSimplePurchaseItems")
+    static List<SimplePurchaseItemDTO> getSimplePurchaseItems(Purchase purchase) {
+        return purchase.items().stream()
+                .map(PurchaseItemMapper.INSTANCE::toSimpleDTO)
                 .toList();
     }
 

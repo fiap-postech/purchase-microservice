@@ -1,6 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.application.mapper;
 
-import br.com.fiap.tech.challenge.purchase.application.dto.CustomerDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullCustomerDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimpleCustomerDTO;
 import br.com.fiap.tech.challenge.purchase.enterprise.entity.Customer;
 import br.com.fiap.tech.challenge.purchase.enterprise.valueobject.Document;
 import br.com.fiap.tech.challenge.purchase.enterprise.valueobject.EmailRegistration;
@@ -19,20 +20,24 @@ public interface CustomerMapper {
     @Mapping(target = "email", expression = "java(source.toEmail())")
     @Mapping(target = "document", expression = "java(source.toDocument())")
     @Mapping(target = "enabled", expression = "java(source.enabled())")
-    CustomerDTO toDTO(Customer source);
+    FullCustomerDTO toDTO(Customer source);
+
+    @Mapping(target = "id", expression = "java(source.uuid().toString())")
+    @Mapping(target = "name", expression = "java(source.name())")
+    SimpleCustomerDTO toSimpleDTO(Customer source);
 
     @Mapping(target = "email", source = "source", qualifiedByName = "getEmail")
     @Mapping(target = "document", source = "source", qualifiedByName = "getDocument")
     @Mapping(target = "uuid", source = "id", qualifiedByName = "generateUuid")
-    Customer toDomain(CustomerDTO source);
+    Customer toDomain(FullCustomerDTO source);
 
     @Named("getEmail")
-    static EmailRegistration getEmail(CustomerDTO source) {
+    static EmailRegistration getEmail(FullCustomerDTO source) {
         return EmailRegistration.of(source.getEmail());
     }
 
     @Named("getDocument")
-    static Document getDocument(CustomerDTO source) {
+    static Document getDocument(FullCustomerDTO source) {
         return Document.of(source.getDocument());
     }
 

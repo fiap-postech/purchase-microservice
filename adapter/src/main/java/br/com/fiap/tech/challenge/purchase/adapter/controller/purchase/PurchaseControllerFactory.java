@@ -4,6 +4,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.presenter.PurchasePresenter;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindAllPurchasesUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurchaseByUUIDUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseToManufactureUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePurchaseStatusUseCase;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PurchaseControllerFactory {
 
-    public static CreatePurchaseController createPurchaseController(CreatePurchaseUseCase useCase, PurchasePresenter presenter) {
-        return new CreatePurchaseControllerImpl(useCase, presenter);
+    public static CreatePurchaseController createPurchaseController(CreatePurchaseUseCase createUseCase, PostPurchaseToManufactureUseCase postToManufactureUseCase,  PurchasePresenter presenter) {
+        return new CreatePurchaseControllerImpl(createUseCase, postToManufactureUseCase, presenter);
     }
 
     public static UpdatePurchaseStatusController updatePurchaseStatusController(UpdatePurchaseStatusUseCase useCase, PurchasePresenter presenter) {

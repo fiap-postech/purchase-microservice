@@ -6,7 +6,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseItemInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.util.CreatePurchaseBuilder;
 import br.com.fiap.tech.challenge.purchase.application.dto.CreatePurchaseDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.ProductDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullProductDTO;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ import static br.com.fiap.tech.challenge.purchase.adapter.fixture.PurchaseInputD
 import static br.com.fiap.tech.challenge.util.Moneys.makeMoney;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CreatePurchaseControllerImplTest {
+class CreatePurchaseBuilderTest {
 
     @Test
     void testBuildPurchaseWithSingleBeverage() {
@@ -147,7 +147,7 @@ class CreatePurchaseControllerImplTest {
         assertThat(makeMoney(price)).isEqualTo(makeMoney(getPurchaseTotalWithoutDiscount(input)));
     }
 
-    private void validateProduct(ProductInputDTO input, ProductDTO dto) {
+    private void validateProduct(ProductInputDTO input, FullProductDTO dto) {
         assertThat(dto.getDescription()).isEqualTo(input.getDescription());
         assertThat(dto.getId()).isEqualTo(input.getId());
         assertThat(dto.getPrice()).isEqualTo(input.getFullPrice());

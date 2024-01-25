@@ -1,7 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.driven.mysql.mapping;
 
 import br.com.fiap.tech.challenge.exception.ApplicationException;
-import br.com.fiap.tech.challenge.purchase.application.dto.CustomerDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullCustomerDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.CustomerEntity;
@@ -54,7 +54,7 @@ public abstract class DBPurchaseMapper {
     }
 
     @Named("getCustomerEntity")
-    CustomerEntity getCustomerEntity(CustomerDTO source) {
+    CustomerEntity getCustomerEntity(FullCustomerDTO source) {
         if (isNull(source)) return null;
 
         return customerRepository.findByDocument(source.getDocument())

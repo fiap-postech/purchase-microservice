@@ -1,6 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.application.mapper;
 
-import br.com.fiap.tech.challenge.purchase.application.dto.ProductDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullProductDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.SimpleProductDTO;
 import br.com.fiap.tech.challenge.purchase.enterprise.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,13 +19,18 @@ public interface ProductMapper {
 
     @Mapping(target = "uuid", source = "id", qualifiedByName = "generateUuid")
     @Mapping(target = "price", source = "price", qualifiedByName = "getPrice")
-    Product toDomain(ProductDTO dto);
+    Product toDomain(FullProductDTO dto);
 
     @Mapping(target = "id", expression = "java(source.uuid().toString())")
     @Mapping(target = "price", source = "source", qualifiedByName = "priceToBigDecimal")
     @Mapping(target = "name", expression = "java(source.name())")
     @Mapping(target = "description", expression = "java(source.description())")
-    ProductDTO toDTO(Product source);
+    FullProductDTO toDTO(Product source);
+
+    @Mapping(target = "id", expression = "java(source.uuid().toString())")
+    @Mapping(target = "name", expression = "java(source.name())")
+    @Mapping(target = "description", expression = "java(source.description())")
+    SimpleProductDTO toSimpleDTO(Product source);
 
     @Named("priceToBigDecimal")
     static BigDecimal priceToBigDecimal(Product product) {

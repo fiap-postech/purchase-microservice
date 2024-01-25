@@ -1,7 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.application.fixture;
 
 import br.com.fiap.tech.challenge.purchase.application.dto.CreatePurchaseDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseItemDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.FullPurchaseItemDTO;
 import br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -58,10 +58,10 @@ public class CreatePurchaseDTOFixture {
                         Instancio.create(singleSandwichItemDTO()),
                         Instancio.create(singleBeverageItemDTO()),
                         Instancio.of(singleBeverageItemDTO())
-                                .set(field(PurchaseItemDTO::getDiscount), BigDecimal.valueOf(2.01))
+                                .set(field(FullPurchaseItemDTO::getDiscount), BigDecimal.valueOf(2.01))
                                 .create(),
                         Instancio.of(singleSideDishItemDTO())
-                                .set(field(PurchaseItemDTO::getDiscount), BigDecimal.valueOf(2.99))
+                                .set(field(FullPurchaseItemDTO::getDiscount), BigDecimal.valueOf(2.99))
                                 .create(),
                         Instancio.create(singleSandwichItemDTO())
                 ))
