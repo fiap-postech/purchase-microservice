@@ -1,10 +1,21 @@
 db:
-  host: mysql
-  schema: tech_challenge
-  username: sys_tech_challenge
-  password: 6#233zJMNTjkQb#sgps#
+  host: #defined at task definition
+  schema: #defined at task definition
+  username: #defined at task definition
+  password: #defined at task definition
   port: 3306
 
-spring.data.redis:
-  host: redis
-  port: 6379
+aws:
+  resources:
+    sqs:
+      payment-done:
+        queue: prd-purchase-payment-done-queue
+    sns:
+      purchase-created:
+        topic: prd-purchase-created-topic
+
+spring:
+  cloud:
+    aws:
+      region:
+        static: us-east-1
