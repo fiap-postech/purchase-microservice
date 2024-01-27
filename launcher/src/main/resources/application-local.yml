@@ -1,5 +1,5 @@
 server:
-  port: 8691
+  port: 8692
 
 db:
   host: localhost
