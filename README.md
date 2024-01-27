@@ -35,7 +35,156 @@ Os nossos repositórios para autenticação utilizando o conceito serverless sã
 
 ## Estrutura Geral do Projeto
 ```
-Antonio, roda o seu script e atualiza aqui!
+./purchase-microservice
+├── Dockerfile
+├── README.md
+├── adapter
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── adapter
+│                                         ├── controller
+│                                         │ └── purchase
+│                                         ├── dto
+│                                         ├── gateway
+│                                         │ └── purchase
+│                                         ├── mapping
+│                                         ├── presenter
+│                                         ├── repository
+│                                         └── util
+├── application
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── application
+│                                         ├── dto
+│                                         ├── gateway
+│                                         ├── mapper
+│                                         ├── usecase
+│                                         │ └── purchase
+│                                         └── util
+├── build.gradle
+├── documentation
+├── drivers
+│ ├── mysql
+│ │ ├── build.gradle
+│ │ └── src
+│ │     └── main
+│ │         └── java
+│ │             └── br
+│ │                 └── com
+│ │                     └── fiap
+│ │                         └── tech
+│ │                             └── challenge
+│ │                                 └── purchase
+│ │                                     └── driven
+│ │                                         └── mysql
+│ │                                             ├── config
+│ │                                             ├── mapping
+│ │                                             ├── model
+│ │                                             ├── repository
+│ │                                             └── service
+│ ├── payment-done-consumer
+│ │ ├── build.gradle
+│ │ └── src
+│ │     └── main
+│ │         └── java
+│ │             └── br
+│ │                 └── com
+│ │                     └── fiap
+│ │                         └── tech
+│ │                             └── challenge
+│ │                                 └── purchase
+│ │                                     └── driver
+│ │                                         └── payment
+│ │                                             └── consumer
+│ │                                                 ├── config
+│ │                                                 └── messaging
+│ ├── purchase-created-producer
+│ │ ├── build.gradle
+│ │ └── src
+│ │     └── main
+│ │         └── java
+│ │             └── br
+│ │                 └── com
+│ │                     └── fiap
+│ │                         └── tech
+│ │                             └── challenge
+│ │                                 └── purchase
+│ │                                     └── driven
+│ │                                         └── purchase
+│ │                                             └── producer
+│ │                                                 ├── config
+│ │                                                 └── messaging
+│ └── rest
+│     ├── build.gradle
+│     └── src
+│         └── main
+│             └── java
+│                 └── br
+│                     └── com
+│                         └── fiap
+│                             └── tech
+│                                 └── challenge
+│                                     └── purchase
+│                                         └── rest
+│                                             ├── config
+│                                             ├── mapping
+│                                             ├── resource
+│                                             │ ├── doc
+│                                             │ └── response
+│                                             └── util
+├── enterprise
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── enterprise
+│                                         ├── entity
+│                                         ├── enums
+│                                         ├── error
+│                                         └── valueobject
+├── infra
+│ ├── docker
+│ │ ├── mysql
+│ │ │ └── script
+│ │ └── nginx
+│ │     └── static
+│ └── docker-compose-local.yml
+├── launcher
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── launcher
+│                                         └── configuration
+└── settings.gradle
 ```
 
 ## Como executar o projeto?
