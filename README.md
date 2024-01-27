@@ -7,11 +7,11 @@ Há uma lanchonete de bairro que está expandindo devido seu grande sucesso. Por
 
 Foi elaborado um conjunto de serviços para viabilizar a operação da lanchonete.
 
-![Visão Geral da Solução](docs/microservices-c1.png)
+![Visão Geral da Solução](documentation/microservices-c1.png)
 
 Nesse repositório, temos a implementação do serviço de pedidos (Purchase Microservice).  
 
-![Purchase Microservice](docs/purchase-microservice-c2.png)
+![Purchase Microservice](documentation/purchase-microservice-c2.png)
 
 ## Repositórios de IaC
 
@@ -19,19 +19,19 @@ Nesse repositório, temos a implementação do serviço de pedidos (Purchase Mic
 
 Nossa infraestrutura de Cloud está dividida da seguinte forma:
 
-1) [infra-foundation](https://github.com/fiap-postech/infra-foundation) : Repositório com a infra-estrutura responsável por toda infra de fundação na qual inclui camada de rede (VPC), Security Groups, Subnets, Internet Gateway, API Gateway e etc.
-2) [infra-microservice-foundation](https://github.com/fiap-postech/infra-microservice-foundation) : Repositório com a infra-estrutura base para micro serviços: AWS ECS Cluster, API Gateway, CDN.
+1) [infra-foundation](https://github.com/fiap-postech/infra-foundation): Repositório com a infra-estrutura responsável por toda infra de fundação na qual inclui camada de rede (VPC), Security Groups, Subnets, Internet Gateway, API Gateway e etc.
+2) [infra-microservice-foundation](https://github.com/fiap-postech/infra-microservice-foundation): Repositório com a infra-estrutura base para micro serviços: AWS ECS Cluster, API Gateway, CDN.
 
 ### Repositórios Lambdas Autenticação JWT
 
 Os nossos repositórios para autenticação utilizando o conceito serverless são:
 
-1) [json-web-token-signer](https://github.com/fiap-postech/json-web-token-signer) : Repositório que contem a lógica da lambda de geração do token de da autenticação.
-2) [json-web-token-verifier](https://github.com/fiap-postech/json-web-token-verifier) : Repositório com a lambda que possui a chave privada para validar se o token passado no header de Authorization é um token válido.
+1) [json-web-token-signer](https://github.com/fiap-postech/json-web-token-signer): Repositório que contem a lógica da lambda de geração do token de da autenticação.
+2) [json-web-token-verifier](https://github.com/fiap-postech/json-web-token-verifier): Repositório com a lambda que possui a chave privada para validar se o token passado no header de Authorization é um token válido.
 
 ### Repositório Infra Purchase Microservice
 
-1) [iac-purchase-microservice](https://github.com/fiap-postech/iac-purchase-microservice) : Repositório que contem o código de aprovisionamento dos recursos para o workload do purchase microservice.
+1) [iac-purchase-microservice](https://github.com/fiap-postech/iac-purchase-microservice): Repositório que contem o código de aprovisionamento dos recursos para o workload do purchase microservice.
 
 ## Estrutura Geral do Projeto
 ```
@@ -224,5 +224,3 @@ docker-compose -f infra/docker-compose-local.yml up -d
 ./gradlew bootRun
 ```
 Ao executar o serviço, o servidor responderá no endereço: `http://localhost:8692`. Ao acessar essa url você será redirecionado ao swagger do projeto.
-
-
