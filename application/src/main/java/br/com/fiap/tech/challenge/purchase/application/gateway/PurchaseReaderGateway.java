@@ -10,4 +10,6 @@ public interface PurchaseReaderGateway {
     ResponseList<Purchase> readAll(Page page);
 
     Purchase readById(UUID id);
+
+    boolean existsByExternalId(String id);
 }

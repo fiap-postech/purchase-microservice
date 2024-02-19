@@ -25,6 +25,7 @@ public interface ProductMapper {
     @Mapping(target = "price", source = "source", qualifiedByName = "priceToBigDecimal")
     @Mapping(target = "name", expression = "java(source.name())")
     @Mapping(target = "description", expression = "java(source.description())")
+    @Mapping(target = "category", expression = "java(source.category())")
     FullProductDTO toDTO(Product source);
 
     @Mapping(target = "id", expression = "java(source.uuid().toString())")

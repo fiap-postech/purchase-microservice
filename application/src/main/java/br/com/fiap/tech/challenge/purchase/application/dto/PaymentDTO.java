@@ -1,13 +1,11 @@
 package br.com.fiap.tech.challenge.purchase.application.dto;
 
-import br.com.fiap.tech.challenge.purchase.enterprise.enums.PaymentMethod;
 import br.com.fiap.tech.challenge.purchase.enterprise.enums.PaymentStatus;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class PaymentDTO implements Serializable {
@@ -15,8 +13,7 @@ public class PaymentDTO implements Serializable {
     private static final long serialVersionUID = 312532141453893566L;
 
     private String id;
-    private LocalDate date;
+    private String paymentId;
     private PaymentStatus status;
-    private PaymentMethod method;
-    private BigDecimal amount;
+    private LocalDateTime created;
 }

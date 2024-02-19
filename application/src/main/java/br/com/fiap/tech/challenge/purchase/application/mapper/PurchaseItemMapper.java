@@ -24,6 +24,8 @@ public interface PurchaseItemMapper {
     @Mapping(target = "discount", source = "item", qualifiedByName = "getDiscountAsBigDecimal")
     @Mapping(target = "price", source = "item", qualifiedByName = "getPriceAsBigDecimal")
     @Mapping(target = "quantity", source = "item", qualifiedByName = "getQuantityInt")
+    @Mapping(target = "currencyId", source = "item", qualifiedByName = "getCurrencyId")
+    @Mapping(target = "sequence", expression = "java(item.sequence())")
     FullPurchaseItemDTO toDTO(PurchaseItem item);
 
     @Mapping(target = "product", source = "item", qualifiedByName = "getSimpleProductDTO")
@@ -59,5 +61,10 @@ public interface PurchaseItemMapper {
     @Named("getPriceAsBigDecimal")
     static BigDecimal priceToBigDecimal(PurchaseItem item) {
         return priceToBigDecimalConverter(item.price());
+    }
+
+    @Named("getCurrencyId")
+    static String getCurrencyId(PurchaseItem item) {
+        return item.price().amount().getCurrency().getCurrencyCode();
     }
 }
