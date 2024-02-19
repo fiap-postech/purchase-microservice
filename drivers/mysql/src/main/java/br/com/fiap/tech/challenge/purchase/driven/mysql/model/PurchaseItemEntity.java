@@ -37,6 +37,11 @@ public class PurchaseItemEntity extends AuditedEntity {
     @JoinColumn(name = "purchase_id")
     private PurchaseEntity purchase;
 
+    @Id
+    @NotNull
+    @Positive
+    private Long sequence;
+
     @NotNull
     @Positive
     private Integer quantity;

@@ -7,7 +7,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,10 +47,12 @@ public class PurchaseEntity extends JPAEntity {
     @OneToMany(mappedBy = "purchase", cascade = ALL)
     private List<PurchaseItemEntity> items = new ArrayList<>();
 
-    public void addItem(PurchaseItemEntity item) {
-        item.setPurchase(this);
-        getItems().add(item);
-    }
+    @OneToOne(mappedBy = "purchase", cascade = ALL)
+    @PrimaryKeyJoinColumn
+    private PaymentEntity payment;
+
+    @NotBlank
+    private String externalId;
 
     public void setItems(List<PurchaseItemEntity> items) {
         this.items = items;

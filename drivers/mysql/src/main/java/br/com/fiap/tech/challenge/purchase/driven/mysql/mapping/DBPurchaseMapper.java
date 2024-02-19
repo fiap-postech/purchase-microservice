@@ -1,6 +1,5 @@
 package br.com.fiap.tech.challenge.purchase.driven.mysql.mapping;
 
-import br.com.fiap.tech.challenge.exception.ApplicationException;
 import br.com.fiap.tech.challenge.purchase.application.dto.FullCustomerDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
@@ -13,7 +12,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static br.com.fiap.tech.challenge.purchase.enterprise.error.ApplicationError.PAYMENT_NOT_FOUND;
 import static java.util.Objects.isNull;
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
@@ -44,18 +42,18 @@ public abstract class DBPurchaseMapper {
     @Mapping(target = "payment", source = "source", qualifiedByName = "getPayment")
     public abstract PurchaseDTO toDTO(PurchaseEntity source);
 
-
     @Named("getPayment")
     PaymentDTO getPayment(PurchaseEntity purchase) {
-        var entity = paymentRepository.findByPurchaseUuid(purchase.getUuid())
-                .orElseThrow(() -> new ApplicationException(PAYMENT_NOT_FOUND));
-
-        return paymentMapper.toDTO(entity);
+        return paymentRepository.findByPurchaseUuid(purchase.getUuid())
+                .map(entity -> paymentMapper.toDTO(entity))
+                .orElse(null);
     }
 
     @Named("getCustomerEntity")
     CustomerEntity getCustomerEntity(FullCustomerDTO source) {
-        if (isNull(source)) return null;
+        if (isNull(source)) {
+            return null;
+        }
 
         return customerRepository.findByDocument(source.getDocument())
                 .orElseGet(() -> customerRepository.save(customerMapper.toEntity(source)));

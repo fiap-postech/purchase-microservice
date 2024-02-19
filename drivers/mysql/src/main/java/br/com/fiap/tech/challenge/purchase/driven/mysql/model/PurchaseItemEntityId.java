@@ -17,4 +17,5 @@ public class PurchaseItemEntityId implements Serializable {
 
     private Long product;
     private Long purchase;
+    private Long sequence;
 }
