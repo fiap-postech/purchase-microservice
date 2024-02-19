@@ -1,4 +1,4 @@
-package br.com.fiap.tech.challenge.purchase.driven.purchase.producer.config;
+package br.com.fiap.tech.challenge.purchase.driven.purchase.created.producer.config;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
