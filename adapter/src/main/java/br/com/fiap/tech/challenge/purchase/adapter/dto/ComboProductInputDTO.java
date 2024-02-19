@@ -11,11 +11,11 @@ import java.io.Serial;
 @Setter
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-public class ComboInputDTO extends ProductInputDTO {
+public class ComboProductInputDTO extends SingleProductInputDTO {
     @Serial
     private static final long serialVersionUID = 7002042207857288411L;
 
-    private ProductInputDTO beverage;
-    private ProductInputDTO sandwich;
-    private ProductInputDTO sideDish;
+    private SingleProductInputDTO beverage;
+    private SingleProductInputDTO sandwich;
+    private SingleProductInputDTO sideDish;
 }

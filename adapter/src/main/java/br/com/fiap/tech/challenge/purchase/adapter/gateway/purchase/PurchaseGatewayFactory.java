@@ -4,6 +4,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseCreatedRep
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseReaderRepository;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseWriterRepository;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
+import br.com.fiap.tech.challenge.purchase.application.gateway.PurchasePaidGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseReaderGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseWriterGateway;
 import lombok.AccessLevel;
@@ -22,6 +23,10 @@ public class PurchaseGatewayFactory {
 
     public static PurchaseCreatedGateway purchaseCreatedGateway(PurchaseCreatedRepository repository) {
         return new PurchaseCreatedGatewayImpl(repository);
+    }
+
+    public static PurchasePaidGateway purchasePaidGateway() {
+        return new PurchasePaidGatewayImpl();
     }
 
 }

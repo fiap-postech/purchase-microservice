@@ -5,7 +5,10 @@ plugins {
 version '1.0.0'
 
 dependencies {
+    compileOnly sharedLibs.commons.lang3
     compileOnly sharedLibs.jakarta.validation.api
+    compileOnly sharedLibs.spring.boot.starter.json
+    compileOnly "org.springframework:spring-tx:${sharedLibs.versions.springVersion.get()}"
 
     api project(":application")
 

@@ -18,8 +18,7 @@ public class PurchaseInputDTO implements Serializable {
 
     private String id;
     private CustomerInputDTO customer;
-    private PurchaseStatus status;
-    private LocalDate date;
+    private PurchaseStatus status = PurchaseStatus.CREATED;
+    private LocalDate date = LocalDate.now();
     private List<PurchaseItemInputDTO> items;
-    private PaymentInputDTO payment;
 }

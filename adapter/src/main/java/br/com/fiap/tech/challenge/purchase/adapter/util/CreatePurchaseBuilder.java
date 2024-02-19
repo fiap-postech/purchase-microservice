@@ -1,8 +1,8 @@
 package br.com.fiap.tech.challenge.purchase.adapter.util;
 
 import br.com.fiap.tech.challenge.exception.ApplicationException;
-import br.com.fiap.tech.challenge.purchase.adapter.dto.ComboInputDTO;
-import br.com.fiap.tech.challenge.purchase.adapter.dto.ProductInputDTO;
+import br.com.fiap.tech.challenge.purchase.adapter.dto.ComboProductInputDTO;
+import br.com.fiap.tech.challenge.purchase.adapter.dto.SingleProductInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseItemInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.mapping.CreatePurchaseDTOMapping;
@@ -18,7 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static br.com.fiap.tech.challenge.purchase.enterprise.error.ApplicationError.PRODUCT_PRICES_IS_INVALID;
+import static br.com.fiap.tech.challenge.purchase.enterprise.error.ApplicationError.PRODUCT_PRICE_IS_INVALID;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreatePurchaseBuilder {
@@ -41,19 +41,19 @@ public class CreatePurchaseBuilder {
     }
 
     private Stream<FullPurchaseItemDTO> dismember(PurchaseItemInputDTO item) {
-        if (!(item.getProduct() instanceof ComboInputDTO combo)) {
+        if (!(item.getProduct() instanceof ComboProductInputDTO combo)) {
             return Stream.of(buildItem(item));
         }
 
         var price = combo.getFullPrice();
         var targetPrice = combo.getPrice();
 
-        var products = new ArrayList<ProductInputDTO>();
+        var products = new ArrayList<SingleProductInputDTO>();
         products.add(combo.getBeverage());
         products.add(combo.getSideDish());
         products.add(combo.getSandwich());
 
-        products.sort(Comparator.comparing(ProductInputDTO::getPrice));
+        products.sort(Comparator.comparing(SingleProductInputDTO::getPrice));
 
         var result = new ArrayList<FullPurchaseItemDTO>();
 
@@ -76,7 +76,7 @@ public class CreatePurchaseBuilder {
         }
 
         if (price.compareTo(targetPrice) != 0) {
-            throw new ApplicationException(PRODUCT_PRICES_IS_INVALID, combo.getId());
+            throw new ApplicationException(PRODUCT_PRICE_IS_INVALID, combo.getId());
         }
 
         return result.stream();
@@ -85,12 +85,12 @@ public class CreatePurchaseBuilder {
     private FullPurchaseItemDTO buildItem(PurchaseItemInputDTO dto) {
         return new FullPurchaseItemDTO()
                 .setDiscount(dto.getDiscount())
-                .setPrice(dto.getPrice())
+                .setPrice(dto.getProduct().getPrice())
                 .setQuantity(dto.getQuantity())
                 .setProduct(buildProduct(dto.getProduct()));
     }
 
-    private FullPurchaseItemDTO buildItem(PurchaseItemInputDTO dto, ProductInputDTO product, BigDecimal discount) {
+    private FullPurchaseItemDTO buildItem(PurchaseItemInputDTO dto, SingleProductInputDTO product, BigDecimal discount) {
         return new FullPurchaseItemDTO()
                 .setDiscount(discount)
                 .setPrice(product.getPrice())
@@ -98,11 +98,12 @@ public class CreatePurchaseBuilder {
                 .setProduct(buildProduct(product));
     }
 
-    private FullProductDTO buildProduct(ProductInputDTO dto) {
+    private FullProductDTO buildProduct(SingleProductInputDTO dto) {
         return new FullProductDTO()
                 .setPrice(dto.getPrice())
                 .setDescription(dto.getDescription())
                 .setId(dto.getId())
-                .setName(dto.getName());
+                .setName(dto.getName())
+                .setCategory(dto.getCategory());
     }
 }

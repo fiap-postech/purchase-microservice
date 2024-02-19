@@ -10,4 +10,5 @@ public interface PurchaseReaderRepository {
 
     PurchaseDTO readById(String id);
 
+    boolean existsByExternalId(String id);
 }
