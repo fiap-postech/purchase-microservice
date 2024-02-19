@@ -25,7 +25,7 @@ create table purchase(
     id bigint auto_increment not null primary key,
     uuid varchar(36) not null unique,
     customer_id bigint,
-    status enum('PAID', 'WAITING_MAKE', 'MAKING', 'MADE', 'DELIVERED') not null default 'PAID',
+    status enum('CREATED', 'PAID', 'WAITING_MAKE', 'MAKING', 'MADE', 'DELIVERED') not null default 'CREATED',
     date date not null default (curdate()),
     created datetime not null,
     last_updated datetime not null,
