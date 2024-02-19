@@ -13,6 +13,7 @@ dependencies {
     implementation project(":adapter")
     implementation project(":drivers:rest")
     implementation project(":drivers:mysql")
+    implementation project(":drivers:cart-closed-consumer")
     implementation project(":drivers:payment-done-consumer")
     implementation project(":drivers:purchase-created-producer")
 

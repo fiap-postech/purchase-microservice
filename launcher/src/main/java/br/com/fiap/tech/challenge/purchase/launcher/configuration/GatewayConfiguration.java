@@ -5,6 +5,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseCreatedRep
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseReaderRepository;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseWriterRepository;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
+import br.com.fiap.tech.challenge.purchase.application.gateway.PurchasePaidGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseReaderGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseWriterGateway;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,11 @@ public class GatewayConfiguration {
     @Bean
     public PurchaseCreatedGateway purchaseCreatedGateway(PurchaseCreatedRepository repository) {
         return PurchaseGatewayFactory.purchaseCreatedGateway(repository);
+    }
+
+    @Bean
+    public PurchasePaidGateway purchasePaidGateway() {
+        return PurchaseGatewayFactory.purchasePaidGateway();
     }
 
 }
