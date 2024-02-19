@@ -7,6 +7,7 @@ import br.com.fiap.tech.challenge.enterprise.valueobject.ValueObject;
 import br.com.fiap.tech.challenge.purchase.enterprise.entity.Product;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -39,12 +40,21 @@ public class PurchaseItem extends ValueObject {
     @Valid
     private final Discount discount;
 
+    @NotNull
+    @Positive
+    private final Long sequence;
+
     @Builder(toBuilder = true)
-    public PurchaseItem(@NotNull Product product, @NotNull Quantity quantity, @NotNull Discount discount, Price price) {
+    public PurchaseItem(@NotNull Product product,
+                        @NotNull Quantity quantity,
+                        @NotNull Discount discount,
+                        Price price,
+                        @NotNull Long sequence) {
         this.product = product;
         this.price = defaultIfNull(price, this.product.price());
         this.quantity = quantity;
         this.discount = discount;
+        this.sequence = sequence;
 
         validate();
     }
