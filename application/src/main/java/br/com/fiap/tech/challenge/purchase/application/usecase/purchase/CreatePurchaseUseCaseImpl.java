@@ -6,6 +6,7 @@ import br.com.fiap.tech.challenge.purchase.application.mapper.CustomerMapper;
 import br.com.fiap.tech.challenge.purchase.application.mapper.PaymentMapper;
 import br.com.fiap.tech.challenge.purchase.application.mapper.PurchaseItemMapper;
 import br.com.fiap.tech.challenge.purchase.enterprise.entity.Purchase;
+import br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ class CreatePurchaseUseCaseImpl implements CreatePurchaseUseCase {
 
     @Override
     public Purchase create(CreatePurchaseDTO dto) {
-        return writerGateway.write(build(dto).waitMake());
+        return writerGateway.write(build(dto));
     }
 
     private Purchase build(CreatePurchaseDTO dto) {
@@ -23,7 +24,7 @@ class CreatePurchaseUseCaseImpl implements CreatePurchaseUseCase {
                 .payment(PaymentMapper.INSTANCE.toDomain(dto.getPayment()))
                 .date(dto.getDate())
                 .customer(CustomerMapper.INSTANCE.toDomain(dto.getCustomer()))
-                .status(dto.getStatus())
+                .status(PurchaseStatus.CREATED)
                 .items(dto.getItems().stream().map(PurchaseItemMapper.INSTANCE::toDomain).toList())
                 .build();
     }
