@@ -43,3 +43,6 @@ findProject(':drivers:cart-closed-consumer')?.name = 'cart-closed-consumer'
 
 include 'drivers:purchase-created-producer'
 findProject(':drivers:purchase-created-producer')?.name = 'purchase-created-producer'
+
+//include 'drivers:purchase-paid-producer'
+//findProject(':drivers:purchase-paid-producer')?.name = 'purchase-created-producer'
