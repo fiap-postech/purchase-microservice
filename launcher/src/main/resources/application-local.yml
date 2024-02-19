@@ -11,11 +11,12 @@ db:
 aws:
   resources:
     sqs:
-      payment-done:
-        queue: local-purchase-payment-done-queue
+      cart-closed.queue: local-purchase-cart-closed-queue
+      payment-done.queue: local-purchase-payment-done-queue
     sns:
-      purchase-created:
-        topic: local-purchase-created-topic
+      purchase-created.topic: local-purchase-created-topic
+      purchase-paid.topic: local-purchase-paid-topic
+      purchase-notification.topic: local-purchase-status-notification-topic
 
 spring:
   cloud:
