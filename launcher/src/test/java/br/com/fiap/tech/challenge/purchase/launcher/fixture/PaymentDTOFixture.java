@@ -18,9 +18,8 @@ public class PaymentDTOFixture {
     public static Model<PaymentDTO> paymentDTOModel() {
         return Instancio.of(PaymentDTO.class)
                 .generate(field(PaymentDTO::getId), gen -> gen.text().uuid())
-                .generate(field(PaymentDTO::getDate), gen -> gen.temporal().localDate())
-                .generate(field(PaymentDTO::getAmount), gen -> gen.math().bigDecimal().min(BigDecimal.valueOf(15.00)))
-                .set(field(PaymentDTO::getMethod), PaymentMethod.PAID_MARKET)
+                .generate(field(PaymentDTO::getCreated), gen -> gen.temporal().localDate())
+                .generate(field(PaymentDTO::getPaymentId), gen -> gen.text().uuid())
                 .set(field(PaymentDTO::getStatus), PaymentStatus.PAID)
                 .toModel();
     }

@@ -20,6 +20,10 @@ import static org.instancio.Select.field;
 public class PurchaseFixture {
 
     public static Model<Purchase> purchaseModel() {
+        return purchaseModel(PurchaseStatus.CREATED);
+    }
+
+    public static Model<Purchase> purchaseModel(PurchaseStatus status) {
         return Instancio.of(Purchase.class)
                 .set(field(Purchase::customer), Instancio.of(customerModel()).create())
                 .set(field(Purchase::items), List.of(
@@ -27,7 +31,7 @@ public class PurchaseFixture {
                         Instancio.of(singleBeverageItem()).create(),
                         Instancio.of(singleSideDishItem()).create()
                 ))
-                .set(field(Purchase::status), PurchaseStatus.PAID)
+                .set(field(Purchase::status), status)
                 .set(field(Purchase::payment), Instancio.of(paymentModel()).create())
                 .generate(field(Purchase::date), gen -> gen.temporal().localDate())
                 .toModel();
