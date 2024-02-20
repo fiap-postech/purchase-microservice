@@ -32,8 +32,8 @@ public class ControllerConfiguration {
     }
 
     @Bean
-    public UpdatePurchaseStatusController updatePurchaseStatusController(UpdatePurchaseStatusUseCase useCase, PurchasePresenter presenter) {
-        return PurchaseControllerFactory.updatePurchaseStatusController(useCase, presenter);
+    public UpdatePurchaseStatusController updatePurchaseStatusController(UpdatePurchaseStatusUseCase updatePurchaseStatusUseCase, PublishPurchaseStatusUseCase publishPurchaseStatusUseCase, PurchasePresenter presenter) {
+        return PurchaseControllerFactory.updatePurchaseStatusController(updatePurchaseStatusUseCase, publishPurchaseStatusUseCase, presenter);
     }
 
     @Bean

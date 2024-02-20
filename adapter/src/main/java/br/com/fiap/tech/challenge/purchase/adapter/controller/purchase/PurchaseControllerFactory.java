@@ -23,8 +23,8 @@ public class PurchaseControllerFactory {
         return new UpdatePaymentControllerImpl(updatePaymentUseCase, postPurchasePaidUseCase, publishPurchaseStatusUseCase);
     }
 
-    public static UpdatePurchaseStatusController updatePurchaseStatusController(UpdatePurchaseStatusUseCase useCase, PurchasePresenter presenter) {
-        return new UpdatePurchaseStatusControllerImpl(useCase, presenter);
+    public static UpdatePurchaseStatusController updatePurchaseStatusController(UpdatePurchaseStatusUseCase updatePurchaseStatusUseCase, PublishPurchaseStatusUseCase publishPurchaseStatusUseCase, PurchasePresenter presenter) {
+        return new UpdatePurchaseStatusControllerImpl(updatePurchaseStatusUseCase, publishPurchaseStatusUseCase, presenter);
     }
 
     public static FindPurchaseByUUIDController findPurchaseByUUIDController(FindPurchaseByUUIDUseCase useCase, PurchasePresenter presenter) {
