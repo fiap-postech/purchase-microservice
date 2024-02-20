@@ -3,6 +3,8 @@ package br.com.fiap.tech.challenge.purchase.driven.mysql.model;
 import br.com.fiap.tech.challenge.purchase.enterprise.enums.PaymentStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
@@ -35,6 +37,7 @@ public class PaymentEntity extends UUIDEntity {
     private String paymentId;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
     @OneToOne

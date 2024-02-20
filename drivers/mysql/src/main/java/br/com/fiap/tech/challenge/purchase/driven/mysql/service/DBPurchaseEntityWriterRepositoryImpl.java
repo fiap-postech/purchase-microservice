@@ -9,6 +9,8 @@ import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PurchaseEntit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Function;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -33,6 +35,14 @@ public class DBPurchaseEntityWriterRepositoryImpl implements PurchaseWriterRepos
 
     private PurchaseEntity getPurchaseEntity(PurchaseDTO purchase) {
         return purchaseRepository.findByUuid(purchase.getId())
+                .map(updateFields(purchase))
                 .orElseGet(() -> dbPurchaseMapper.toEntity(purchase));
+    }
+
+    private Function<PurchaseEntity, PurchaseEntity> updateFields(PurchaseDTO dto) {
+        return entity -> {
+            entity.setStatus(dto.getStatus());
+            return entity;
+        };
     }
 }

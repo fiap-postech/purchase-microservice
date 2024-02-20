@@ -13,6 +13,8 @@ public interface PaymentMapper {
 
     @Mapping(target = "id", expression = "java(payment.uuid().toString())")
     @Mapping(target = "status", expression = "java(payment.status())")
+    @Mapping(target = "created", expression = "java(payment.created())")
+    @Mapping(target = "paymentId", expression = "java(payment.id())")
     PaymentDTO toDTO(Payment payment);
 
     @Mapping(target = "uuid", source = "id", qualifiedByName = "generateUuid")

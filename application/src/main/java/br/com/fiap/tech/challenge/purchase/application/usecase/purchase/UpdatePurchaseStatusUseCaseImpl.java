@@ -26,7 +26,8 @@ class UpdatePurchaseStatusUseCaseImpl implements UpdatePurchaseStatusUseCase {
     private Purchase updateStatus(Purchase purchase, PurchaseStatus status) {
         return switch (status) {
             case CREATED -> purchase.created();
-            case PAID -> purchase.paid();
+            case PAID_SUCCESS -> purchase.paidSuccessful();
+            case PAID_ERROR -> purchase.paidFail();
             case WAITING_MAKE -> purchase.waitMake();
             case MAKING -> purchase.making();
             case MADE -> purchase.made();

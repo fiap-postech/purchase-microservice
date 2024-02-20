@@ -5,6 +5,9 @@ import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePu
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindAllPurchasesUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurchaseByUUIDUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseCreatedUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchasePaidUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PublishPurchaseStatusUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePaymentUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePurchaseStatusUseCase;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -14,6 +17,10 @@ public class PurchaseControllerFactory {
 
     public static CreatePurchaseController createPurchaseController(CreatePurchaseUseCase createUseCase, PostPurchaseCreatedUseCase postCreatedUseCase) {
         return new CreatePurchaseControllerImpl(createUseCase, postCreatedUseCase);
+    }
+
+    public static UpdatePaymentController updatePaymentController(UpdatePaymentUseCase updatePaymentUseCase, PostPurchasePaidUseCase postPurchasePaidUseCase, PublishPurchaseStatusUseCase publishPurchaseStatusUseCase) {
+        return new UpdatePaymentControllerImpl(updatePaymentUseCase, postPurchasePaidUseCase, publishPurchaseStatusUseCase);
     }
 
     public static UpdatePurchaseStatusController updatePurchaseStatusController(UpdatePurchaseStatusUseCase useCase, PurchasePresenter presenter) {

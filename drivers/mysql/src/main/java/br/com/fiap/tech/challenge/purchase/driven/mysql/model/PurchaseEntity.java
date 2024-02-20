@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static java.util.Objects.isNull;
 
 @Entity
 @Table(name = "purchase")
@@ -41,6 +42,9 @@ public class PurchaseEntity extends JPAEntity {
     private PurchaseStatus status;
 
     @NotNull
+    private String code;
+
+    @NotNull
     private LocalDate date;
 
     @NotNull
@@ -57,5 +61,15 @@ public class PurchaseEntity extends JPAEntity {
     public void setItems(List<PurchaseItemEntity> items) {
         this.items = items;
         this.items.forEach(i -> i.setPurchase(this));
+    }
+
+    public PurchaseEntity setPayment(PaymentEntity payment) {
+        if (isNull(payment)) {
+            return this;
+        }
+
+        this.payment = payment;
+        this.payment.setPurchase(this);
+        return this;
     }
 }

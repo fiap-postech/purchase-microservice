@@ -5,7 +5,7 @@ import br.com.fiap.tech.challenge.purchase.enterprise.entity.Purchase;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-class PostPurchaseToManufactureUseCaseImpl implements PostPurchaseToManufactureUseCase {
+class PostPurchasePaidUseCaseImpl implements PostPurchasePaidUseCase {
 
     private final PurchasePaidGateway gateway;
 

@@ -16,6 +16,8 @@ dependencies {
     implementation project(":drivers:cart-closed-consumer")
     implementation project(":drivers:payment-done-consumer")
     implementation project(":drivers:purchase-created-producer")
+    implementation project(":drivers:purchase-paid-producer")
+    implementation project(":drivers:purchase-status-producer")
 
     implementation sharedLibs.spring.data.commons
     implementation sharedLibs.spring.boot.starter.data.jpa

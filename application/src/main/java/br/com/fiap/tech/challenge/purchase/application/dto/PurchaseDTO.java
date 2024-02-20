@@ -16,6 +16,7 @@ public class PurchaseDTO implements Serializable {
 
     private String id;
     private String externalId;
+    private String code;
     private FullCustomerDTO customer;
     private PurchaseStatus status;
     private LocalDate date;

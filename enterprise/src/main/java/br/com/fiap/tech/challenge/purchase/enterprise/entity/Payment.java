@@ -10,7 +10,10 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.io.Serial;
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 @Getter
 @Accessors(fluent = true)
@@ -27,14 +30,19 @@ public class Payment extends Entity {
     @NotNull
     private final PaymentStatus status;
 
+    @NotNull
+    private final LocalDateTime created;
+
     @Builder(toBuilder = true)
     public Payment(@Builder.ObtainVia(method = "uuid") UUID uuid,
                    @NotNull String id,
-                   @NotNull PaymentStatus status) {
+                   @NotNull PaymentStatus status,
+                   LocalDateTime created) {
         super(uuid);
 
         this.id = id;
         this.status = status;
+        this.created = defaultIfNull(created, LocalDateTime.now());
 
         validate();
     }

@@ -1,7 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.driven.mysql.mapping;
 
 import br.com.fiap.tech.challenge.purchase.application.dto.FullCustomerDTO;
-import br.com.fiap.tech.challenge.purchase.application.dto.PaymentDTO;
 import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.CustomerEntity;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.PurchaseEntity;
@@ -14,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static java.util.Objects.isNull;
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
+import static org.mapstruct.NullValueMappingStrategy.RETURN_DEFAULT;
 
-@Mapper(componentModel = SPRING, uses = { DBCustomerMapper.class, DBPurchaseItemMapper.class })
+@Mapper(componentModel = SPRING,
+        uses = { DBCustomerMapper.class, DBPurchaseItemMapper.class, DBPaymentMapper.class },
+        nullValueMappingStrategy = RETURN_DEFAULT
+)
 public abstract class DBPurchaseMapper {
 
     @Autowired
@@ -39,15 +42,7 @@ public abstract class DBPurchaseMapper {
     public abstract PurchaseEntity toEntity(PurchaseDTO source);
 
     @Mapping(target = "id", source = "uuid")
-    @Mapping(target = "payment", source = "source", qualifiedByName = "getPayment")
     public abstract PurchaseDTO toDTO(PurchaseEntity source);
-
-    @Named("getPayment")
-    PaymentDTO getPayment(PurchaseEntity purchase) {
-        return paymentRepository.findByPurchaseUuid(purchase.getUuid())
-                .map(entity -> paymentMapper.toDTO(entity))
-                .orElse(null);
-    }
 
     @Named("getCustomerEntity")
     CustomerEntity getCustomerEntity(FullCustomerDTO source) {

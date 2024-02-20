@@ -25,11 +25,11 @@ create table product(
 create table purchase(
     id bigint auto_increment not null primary key,
     uuid varchar(36) not null unique,
+    code varchar(4) not null,
     external_id varchar(60) not null unique,
     customer_id bigint,
-    status enum('CREATED', 'PAID', 'WAITING_MAKE', 'MAKING', 'MADE', 'DELIVERED') not null default 'CREATED',
+    status enum('CREATED', 'PAID_SUCCESS', 'PAID_ERROR', 'WAITING_MAKE', 'MAKING', 'MADE', 'DELIVERED') not null default 'CREATED',
     date date not null default (curdate()),
-    payment_id varchar(60),
     created datetime not null,
     last_updated datetime not null,
     version integer not null,

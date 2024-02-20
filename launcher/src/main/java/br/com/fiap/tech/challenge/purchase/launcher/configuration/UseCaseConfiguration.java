@@ -3,13 +3,16 @@ package br.com.fiap.tech.challenge.purchase.launcher.configuration;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchasePaidGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseReaderGateway;
+import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseStatusGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseWriterGateway;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindAllPurchasesUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurchaseByUUIDUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseCreatedUseCase;
-import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseToManufactureUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchasePaidUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PublishPurchaseStatusUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PurchaseUseCaseFactory;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePaymentUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePurchaseStatusUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,13 +26,23 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public UpdatePaymentUseCase updatePaymentUseCase(PurchaseReaderGateway readerGateway, PurchaseWriterGateway writerGateway) {
+        return PurchaseUseCaseFactory.updatePaymentUseCase(readerGateway, writerGateway);
+    }
+
+    @Bean
+    public PublishPurchaseStatusUseCase publishPurchaseStatusUseCase(PurchaseStatusGateway gateway) {
+        return PurchaseUseCaseFactory.publishPurchaseStatusUseCase(gateway);
+    }
+
+    @Bean
     public PostPurchaseCreatedUseCase postPurchaseCreatedUseCase(PurchaseCreatedGateway gateway) {
         return PurchaseUseCaseFactory.postPurchaseCreatedUseCase(gateway);
     }
 
     @Bean
-    public PostPurchaseToManufactureUseCase postPurchaseToManufactureUseCase(PurchasePaidGateway gateway) {
-        return PurchaseUseCaseFactory.postPurchaseToManufactureUseCase(gateway);
+    public PostPurchasePaidUseCase postPurchasePaidUseCase(PurchasePaidGateway gateway) {
+        return PurchaseUseCaseFactory.postPurchasePaidUseCase(gateway);
     }
 
     @Bean

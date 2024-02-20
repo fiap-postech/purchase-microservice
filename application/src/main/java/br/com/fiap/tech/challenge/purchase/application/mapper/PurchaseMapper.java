@@ -15,7 +15,12 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(uses = { CommonMapper.class, PurchaseItemMapper.class, CustomerMapper.class, PaymentMapper.class })
+import static org.mapstruct.NullValueMappingStrategy.RETURN_DEFAULT;
+
+@Mapper(
+        uses = { CommonMapper.class, PurchaseItemMapper.class, CustomerMapper.class, PaymentMapper.class },
+        nullValueMappingStrategy = RETURN_DEFAULT
+)
 public interface PurchaseMapper {
 
     PurchaseMapper INSTANCE = Mappers.getMapper(PurchaseMapper.class);
@@ -30,12 +35,14 @@ public interface PurchaseMapper {
     @Mapping(target = "items", source = "purchase", qualifiedByName = "getPurchaseItems")
     @Mapping(target = "payment", source = "purchase", qualifiedByName = "getPaymentDTO")
     @Mapping(target = "externalId", expression = "java(purchase.externalId())")
+    @Mapping(target = "code", expression = "java(purchase.code())")
     PurchaseDTO toDTO(Purchase purchase);
 
     @Mapping(target = "id", expression = "java(purchase.uuid().toString())")
     @Mapping(target = "customer", source = "purchase", qualifiedByName = "getSimpleCustomerDTO")
     @Mapping(target = "status", expression = "java(purchase.status())")
     @Mapping(target = "date", expression = "java(purchase.date())")
+    @Mapping(target = "code", expression = "java(purchase.code())")
     @Mapping(target = "items", source = "purchase", qualifiedByName = "getSimplePurchaseItems")
     SimplePurchaseDTO toSimpleDTO(Purchase purchase);
 

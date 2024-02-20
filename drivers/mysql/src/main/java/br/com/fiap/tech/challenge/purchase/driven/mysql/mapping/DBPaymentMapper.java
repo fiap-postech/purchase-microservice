@@ -13,6 +13,7 @@ public interface DBPaymentMapper {
     PaymentDTO toDTO(PaymentEntity payment);
 
     @Mapping(target = "created", ignore = true)
+    @Mapping(target = "uuid", source = "id")
     @Mapping(target = "lastUpdated", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "purchase", ignore = true)
