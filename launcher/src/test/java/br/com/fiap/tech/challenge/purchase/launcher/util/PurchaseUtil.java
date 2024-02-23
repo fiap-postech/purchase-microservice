@@ -2,6 +2,7 @@ package br.com.fiap.tech.challenge.purchase.launcher.util;
 
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseInputDTO;
 import br.com.fiap.tech.challenge.purchase.application.util.ResponseList;
+import br.com.fiap.tech.challenge.purchase.driver.cart.closed.consumer.config.EnvironmentProperties;
 import br.com.fiap.tech.challenge.purchase.rest.resource.response.PurchaseResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
@@ -16,6 +17,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+import static br.com.fiap.tech.challenge.purchase.driver.cart.closed.consumer.config.EnvironmentProperties.CART_CLOSED_QUEUE;
+import static br.com.fiap.tech.challenge.purchase.driver.payment.consumer.config.EnvironmentProperties.PAYMENT_DONE_QUEUE;
 import static br.com.fiap.tech.challenge.purchase.launcher.util.ConfigurationOverrides.LOCAL_PORT;
 import static br.com.fiap.tech.challenge.purchase.launcher.util.JsonUtil.fromJsonString;
 import static br.com.fiap.tech.challenge.purchase.launcher.util.QueueUtil.sendMessage;
@@ -26,7 +29,11 @@ import static org.awaitility.Awaitility.given;
 public class PurchaseUtil {
 
     public static String getPaymentDoneQueueName(Environment env) {
-        return env.getProperty("aws.resources.sqs.payment-done.queue");
+        return env.getProperty(PAYMENT_DONE_QUEUE);
+    }
+
+    public static String getCartClosedQueueName(Environment env) {
+        return env.getProperty(CART_CLOSED_QUEUE);
     }
 
     public static ResponseList<PurchaseResponse> getAllPurchases() {

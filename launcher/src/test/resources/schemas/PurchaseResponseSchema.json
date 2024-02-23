@@ -82,23 +82,17 @@
       }
     },
     "payment": {
-      "type": "object",
+      "type": ["object", "null"],
       "properties": {
         "id": {
           "type": "string"
         },
-        "date": {
-          "type": "string"
-        },
+        "date": {},
         "status": {
           "type": "string"
         },
-        "method": {
-          "type": "string"
-        },
-        "amount": {
-          "type": "number"
-        }
+        "method": {},
+        "amount": {}
       },
       "required": [
         "id",
@@ -114,7 +108,6 @@
     "customer",
     "status",
     "date",
-    "items",
-    "payment"
+    "items"
   ]
 }

@@ -8,11 +8,12 @@ db:
 aws:
   resources:
     sqs:
-      payment-done:
-        queue: prd-purchase-payment-done-queue
+      cart-closed.queue: prd-purchase-cart-closed-queue
+      payment-done.queue: prd-purchase-payment-done-queue
     sns:
-      purchase-created:
-        topic: prd-purchase-created-topic
+      purchase-created.topic: prd-purchase-created-topic
+      purchase-paid.topic: prd-purchase-paid-topic
+      purchase-notification.topic: prd-purchase-status-notification-topic
 
 spring:
   cloud:

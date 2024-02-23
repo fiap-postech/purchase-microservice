@@ -10,5 +10,4 @@ public class QueueUtil {
     public static <T> void sendMessage(SqsTemplate template, String queue, T element) {
         template.send(to -> to.queue(queue).payload(element));
     }
-
 }

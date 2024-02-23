@@ -2,6 +2,7 @@ package br.com.fiap.tech.challenge.purchase.launcher.fixture.input;
 
 import br.com.fiap.tech.challenge.purchase.adapter.dto.ComboProductInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.dto.SingleProductInputDTO;
+import br.com.fiap.tech.challenge.purchase.enterprise.enums.ProductCategory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.instancio.Instancio;
@@ -21,6 +22,7 @@ public class ProductInputDTOFixture {
                 .set(field(SingleProductInputDTO::getPrice), BigDecimal.valueOf(5.00))
                 .set(field(SingleProductInputDTO::getFullPrice), BigDecimal.valueOf(5.00))
                 .set(field(SingleProductInputDTO::getDiscount), BigDecimal.ZERO)
+                .set(field(SingleProductInputDTO::getCategory), ProductCategory.BEVERAGE)
                 .toModel();
     }
 
@@ -31,6 +33,7 @@ public class ProductInputDTOFixture {
                 .set(field(SingleProductInputDTO::getPrice), BigDecimal.valueOf(3.00))
                 .set(field(SingleProductInputDTO::getFullPrice), BigDecimal.valueOf(3.00))
                 .set(field(SingleProductInputDTO::getDiscount), BigDecimal.ZERO)
+                .set(field(SingleProductInputDTO::getCategory), ProductCategory.SIDE_DISH)
                 .toModel();
     }
 
@@ -41,6 +44,7 @@ public class ProductInputDTOFixture {
                 .set(field(SingleProductInputDTO::getPrice), BigDecimal.valueOf(17.00))
                 .set(field(SingleProductInputDTO::getFullPrice), BigDecimal.valueOf(17.00))
                 .set(field(SingleProductInputDTO::getDiscount), BigDecimal.ZERO)
+                .set(field(SingleProductInputDTO::getCategory), ProductCategory.SANDWICH)
                 .toModel();
     }
 
@@ -54,6 +58,7 @@ public class ProductInputDTOFixture {
                 .set(field(ComboProductInputDTO::getBeverage), Instancio.create(beverageInputDTO()))
                 .set(field(ComboProductInputDTO::getSideDish), Instancio.create(sideDishInputDTO()))
                 .set(field(ComboProductInputDTO::getSandwich), Instancio.create(sandwichInputDTO()))
+                .set(field(SingleProductInputDTO::getCategory), ProductCategory.COMBO)
                 .toModel();
     }
 
