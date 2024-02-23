@@ -7,11 +7,11 @@ Há uma lanchonete de bairro que está expandindo devido seu grande sucesso. Por
 
 Foi elaborado um conjunto de serviços para viabilizar a operação da lanchonete.
 
-![Visão Geral da Solução](docs/microservices-c1.png)
+![Visão Geral da Solução](documentation/microservices-c1.png)
 
 Nesse repositório, temos a implementação do serviço de pedidos (Purchase Microservice).  
 
-![Purchase Microservice](docs/purchase-microservice-c2.png)
+![Purchase Microservice](documentation/purchase-microservice-c2.png)
 
 ## Repositórios de IaC
 
@@ -19,23 +19,172 @@ Nesse repositório, temos a implementação do serviço de pedidos (Purchase Mic
 
 Nossa infraestrutura de Cloud está dividida da seguinte forma:
 
-1) [infra-foundation](https://github.com/fiap-postech/infra-foundation) : Repositório com a infra-estrutura responsável por toda infra de fundação na qual inclui camada de rede (VPC), Security Groups, Subnets, Internet Gateway, API Gateway e etc.
-2) [infra-microservice-foundation](https://github.com/fiap-postech/infra-microservice-foundation) : Repositório com a infra-estrutura base para micro serviços: AWS ECS Cluster, API Gateway, CDN.
+1) [infra-foundation](https://github.com/fiap-postech/infra-foundation): Repositório com a infra-estrutura responsável por toda infra de fundação na qual inclui camada de rede (VPC), Security Groups, Subnets, Internet Gateway, API Gateway e etc.
+2) [infra-microservice-foundation](https://github.com/fiap-postech/infra-microservice-foundation): Repositório com a infra-estrutura base para micro serviços: AWS ECS Cluster, API Gateway, CDN.
 
 ### Repositórios Lambdas Autenticação JWT
 
 Os nossos repositórios para autenticação utilizando o conceito serverless são:
 
-1) [json-web-token-signer](https://github.com/fiap-postech/json-web-token-signer) : Repositório que contem a lógica da lambda de geração do token de da autenticação.
-2) [json-web-token-verifier](https://github.com/fiap-postech/json-web-token-verifier) : Repositório com a lambda que possui a chave privada para validar se o token passado no header de Authorization é um token válido.
+1) [json-web-token-signer](https://github.com/fiap-postech/json-web-token-signer): Repositório que contem a lógica da lambda de geração do token de da autenticação.
+2) [json-web-token-verifier](https://github.com/fiap-postech/json-web-token-verifier): Repositório com a lambda que possui a chave privada para validar se o token passado no header de Authorization é um token válido.
 
 ### Repositório Infra Purchase Microservice
 
-1) [iac-purchase-microservice](https://github.com/fiap-postech/iac-purchase-microservice) : Repositório que contem o código de aprovisionamento dos recursos para o workload do purchase microservice.
+1) [iac-purchase-microservice](https://github.com/fiap-postech/iac-purchase-microservice): Repositório que contem o código de aprovisionamento dos recursos para o workload do purchase microservice.
 
 ## Estrutura Geral do Projeto
 ```
-Antonio, roda o seu script e atualiza aqui!
+./purchase-microservice
+├── Dockerfile
+├── README.md
+├── adapter
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── adapter
+│                                         ├── controller
+│                                         │ └── purchase
+│                                         ├── dto
+│                                         ├── gateway
+│                                         │ └── purchase
+│                                         ├── mapping
+│                                         ├── presenter
+│                                         ├── repository
+│                                         └── util
+├── application
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── application
+│                                         ├── dto
+│                                         ├── gateway
+│                                         ├── mapper
+│                                         ├── usecase
+│                                         │ └── purchase
+│                                         └── util
+├── build.gradle
+├── documentation
+├── drivers
+│ ├── mysql
+│ │ ├── build.gradle
+│ │ └── src
+│ │     └── main
+│ │         └── java
+│ │             └── br
+│ │                 └── com
+│ │                     └── fiap
+│ │                         └── tech
+│ │                             └── challenge
+│ │                                 └── purchase
+│ │                                     └── driven
+│ │                                         └── mysql
+│ │                                             ├── config
+│ │                                             ├── mapping
+│ │                                             ├── model
+│ │                                             ├── repository
+│ │                                             └── service
+│ ├── payment-done-consumer
+│ │ ├── build.gradle
+│ │ └── src
+│ │     └── main
+│ │         └── java
+│ │             └── br
+│ │                 └── com
+│ │                     └── fiap
+│ │                         └── tech
+│ │                             └── challenge
+│ │                                 └── purchase
+│ │                                     └── driver
+│ │                                         └── payment
+│ │                                             └── consumer
+│ │                                                 ├── config
+│ │                                                 └── messaging
+│ ├── purchase-created-producer
+│ │ ├── build.gradle
+│ │ └── src
+│ │     └── main
+│ │         └── java
+│ │             └── br
+│ │                 └── com
+│ │                     └── fiap
+│ │                         └── tech
+│ │                             └── challenge
+│ │                                 └── purchase
+│ │                                     └── driven
+│ │                                         └── purchase
+│ │                                             └── producer
+│ │                                                 ├── config
+│ │                                                 └── messaging
+│ └── rest
+│     ├── build.gradle
+│     └── src
+│         └── main
+│             └── java
+│                 └── br
+│                     └── com
+│                         └── fiap
+│                             └── tech
+│                                 └── challenge
+│                                     └── purchase
+│                                         └── rest
+│                                             ├── config
+│                                             ├── mapping
+│                                             ├── resource
+│                                             │ ├── doc
+│                                             │ └── response
+│                                             └── util
+├── enterprise
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── enterprise
+│                                         ├── entity
+│                                         ├── enums
+│                                         ├── error
+│                                         └── valueobject
+├── infra
+│ ├── docker
+│ │ ├── mysql
+│ │ │ └── script
+│ │ └── nginx
+│ │     └── static
+│ └── docker-compose-local.yml
+├── launcher
+│ ├── build.gradle
+│ └── src
+│     └── main
+│         └── java
+│             └── br
+│                 └── com
+│                     └── fiap
+│                         └── tech
+│                             └── challenge
+│                                 └── purchase
+│                                     └── launcher
+│                                         └── configuration
+└── settings.gradle
 ```
 
 ## Como executar o projeto?
@@ -75,5 +224,3 @@ docker-compose -f infra/docker-compose-local.yml up -d
 ./gradlew bootRun
 ```
 Ao executar o serviço, o servidor responderá no endereço: `http://localhost:8692`. Ao acessar essa url você será redirecionado ao swagger do projeto.
-
-
