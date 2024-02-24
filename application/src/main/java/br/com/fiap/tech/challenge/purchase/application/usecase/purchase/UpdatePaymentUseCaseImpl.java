@@ -22,10 +22,13 @@ class UpdatePaymentUseCaseImpl implements UpdatePaymentUseCase {
         var purchase = readerGateway.readById(UUID.fromString(dto.getPurchaseId()));
 
         purchase = purchase.toBuilder().payment(buildPayment(dto)).build();
-        purchase = dto.getStatus() == PAID ? purchase.paidSuccessful() : purchase.paidFail();
-        purchase = writerGateway.write(purchase);
 
-        return writerGateway.write(purchase.waitMake());
+        if (dto.getStatus() == PAID) {
+            purchase = writerGateway.write(purchase.paidSuccessful());
+            return writerGateway.write(purchase.waitMake());
+        } else {
+            return writerGateway.write(purchase.paidFail());
+        }
     }
 
     private Payment buildPayment(UpdatePaymentDTO dto) {
