@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class PurchaseItemOutputDTO {
 
+    private String id;
     private String title;
     private String description;
     private String categoryId;

@@ -13,6 +13,7 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 @Mapper(componentModel = SPRING)
 public interface PurchaseItemOutputDTOMapper {
 
+    @Mapping(target = "id", source = "product.id")
     @Mapping(target = "title", source = "product.name")
     @Mapping(target = "description", source = "product.description")
     @Mapping(target = "categoryId", expression = "java(dto.getProduct().getCategory().name())")
