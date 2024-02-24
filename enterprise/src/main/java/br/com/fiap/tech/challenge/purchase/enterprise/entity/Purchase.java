@@ -102,8 +102,8 @@ public class Purchase extends Entity {
         return updateStatus(PurchaseStatus.DELIVERED);
     }
 
-    public boolean wasPaid() {
-        return status() == PurchaseStatus.PAID_SUCCESS;
+    public boolean isWaitingMake() {
+        return status() == PurchaseStatus.WAITING_MAKE;
     }
 
     private Purchase updateStatus(PurchaseStatus status) {

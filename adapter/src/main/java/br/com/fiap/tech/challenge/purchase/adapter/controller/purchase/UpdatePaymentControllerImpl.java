@@ -20,7 +20,7 @@ class UpdatePaymentControllerImpl implements UpdatePaymentController {
     public void update(UpdatePaymentDTO dto) {
         var purchase = updateUseCase.update(dto);
 
-        if (purchase.wasPaid()) {
+        if (purchase.isWaitingMake()) {
             postPurchasePaidUseCase.post(purchase);
         }
 

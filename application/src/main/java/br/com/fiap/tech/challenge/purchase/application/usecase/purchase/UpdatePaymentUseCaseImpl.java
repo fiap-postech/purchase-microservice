@@ -23,8 +23,9 @@ class UpdatePaymentUseCaseImpl implements UpdatePaymentUseCase {
 
         purchase = purchase.toBuilder().payment(buildPayment(dto)).build();
         purchase = dto.getStatus() == PAID ? purchase.paidSuccessful() : purchase.paidFail();
+        purchase = writerGateway.write(purchase);
 
-        return writerGateway.write(purchase);
+        return writerGateway.write(purchase.waitMake());
     }
 
     private Payment buildPayment(UpdatePaymentDTO dto) {
