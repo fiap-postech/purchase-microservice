@@ -20,6 +20,7 @@ public class PaymentDTOFixture {
                 .generate(field(PaymentDTO::getId), gen -> gen.text().uuid())
                 .generate(field(PaymentDTO::getPaymentId), gen -> gen.text().uuid())
                 .generate(field(PaymentDTO::getCreated), gen -> gen.temporal().localDateTime())
+                .set(field(PaymentDTO::getPaymentUrl), "https://paga.eu/10234")
                 .set(field(PaymentDTO::getStatus), PaymentStatus.PAID)
                 .toModel();
     }

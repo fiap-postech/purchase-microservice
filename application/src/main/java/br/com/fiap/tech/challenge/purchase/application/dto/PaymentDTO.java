@@ -14,6 +14,7 @@ public class PaymentDTO implements Serializable {
 
     private String id;
     private String paymentId;
+    private String paymentUrl;
     private PaymentStatus status;
     private LocalDateTime created;
 }

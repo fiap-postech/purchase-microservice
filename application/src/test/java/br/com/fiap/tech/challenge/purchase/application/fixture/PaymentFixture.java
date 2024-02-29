@@ -19,6 +19,7 @@ public class PaymentFixture {
     public static Model<Payment> paymentModel() {
         return Instancio.of(Payment.class)
                 .generate(field(Payment::id), gen -> gen.text().uuid())
+                .set(field(Payment::url), "https://paga.eu/2345")
                 .set(field(Payment::status), PaymentStatus.PAID)
                 .toModel();
     }

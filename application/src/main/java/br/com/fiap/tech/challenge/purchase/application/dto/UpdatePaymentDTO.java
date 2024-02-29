@@ -17,5 +17,6 @@ public class UpdatePaymentDTO implements Serializable {
 
     private String id;
     private String purchaseId;
+    private String paymentUrl;
     private PaymentStatus status;
 }
