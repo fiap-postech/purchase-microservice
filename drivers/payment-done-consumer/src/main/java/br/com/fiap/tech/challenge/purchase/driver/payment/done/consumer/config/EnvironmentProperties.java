@@ -1,4 +1,4 @@
-package br.com.fiap.tech.challenge.purchase.driver.payment.consumer.config;
+package br.com.fiap.tech.challenge.purchase.driver.payment.done.consumer.config;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

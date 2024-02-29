@@ -1,4 +1,4 @@
-package br.com.fiap.tech.challenge.purchase.driver.payment.consumer.messaging;
+package br.com.fiap.tech.challenge.purchase.driver.payment.done.consumer.messaging;
 
 import br.com.fiap.tech.challenge.purchase.adapter.controller.purchase.UpdatePaymentController;
 import br.com.fiap.tech.challenge.purchase.application.dto.UpdatePaymentDTO;
@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-import static br.com.fiap.tech.challenge.purchase.driver.payment.consumer.config.EnvironmentProperties.PAYMENT_DONE_QUEUE;
+import static br.com.fiap.tech.challenge.purchase.driver.payment.done.consumer.config.EnvironmentProperties.PAYMENT_DONE_QUEUE;
 
 @RequiredArgsConstructor
 @Component
-public class PaymentConsumerListener {
+public class PaymentDoneConsumerListener {
 
     private final UpdatePaymentController controller;
 
