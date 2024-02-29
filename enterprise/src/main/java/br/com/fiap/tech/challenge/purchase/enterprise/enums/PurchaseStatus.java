@@ -13,7 +13,8 @@ public enum PurchaseStatus {
     WAITING_MAKE("Em fila para preparo", MAKING),
     PAID_SUCCESS("Pagamento confirmado", WAITING_MAKE),
     PAID_ERROR("Falha no pagamento"),
-    CREATED("Criado", PAID_SUCCESS, PAID_ERROR);
+    WAITING_PAYMENT("Aguardando Pagamento", PAID_SUCCESS, PAID_ERROR),
+    CREATED("Criado", WAITING_PAYMENT);
 
     private final List<PurchaseStatus> allowed;
     private final String description;

@@ -78,6 +78,10 @@ public class Purchase extends Entity {
         return updateStatus(PurchaseStatus.CREATED);
     }
 
+    public Purchase waitingPayment() {
+        return updateStatus(PurchaseStatus.WAITING_PAYMENT);
+    }
+
     public Purchase paidSuccessful() {
         return updateStatus(PurchaseStatus.PAID_SUCCESS);
     }

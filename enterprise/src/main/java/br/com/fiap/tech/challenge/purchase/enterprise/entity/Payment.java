@@ -1,6 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.enterprise.entity;
 
 import br.com.fiap.tech.challenge.enterprise.entity.Entity;
+import br.com.fiap.tech.challenge.enterprise.validation.URL;
 import br.com.fiap.tech.challenge.purchase.enterprise.enums.PaymentStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,16 +34,21 @@ public class Payment extends Entity {
     @NotNull
     private final LocalDateTime created;
 
+    @URL
+    private final String url;
+
     @Builder(toBuilder = true)
     public Payment(@Builder.ObtainVia(method = "uuid") UUID uuid,
                    @NotNull String id,
                    @NotNull PaymentStatus status,
-                   LocalDateTime created) {
+                   LocalDateTime created,
+                   String url) {
         super(uuid);
 
         this.id = id;
         this.status = status;
         this.created = defaultIfNull(created, LocalDateTime.now());
+        this.url = url;
 
         validate();
     }

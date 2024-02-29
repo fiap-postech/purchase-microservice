@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum PaymentStatus {
+    CREATED("Criado"),
     PAID("Pago"),
     ERROR("Erro no pagamento");
 
