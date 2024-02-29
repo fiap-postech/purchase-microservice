@@ -42,6 +42,12 @@ public class DBPurchaseEntityWriterRepositoryImpl implements PurchaseWriterRepos
     private Function<PurchaseEntity, PurchaseEntity> updateFields(PurchaseDTO dto) {
         return entity -> {
             entity.setStatus(dto.getStatus());
+
+            if (dto.getPayment().getStatus() != entity.getPayment().getStatus()) {
+                entity.getPayment().setStatus(dto.getPayment().getStatus());
+            }
+
+
             return entity;
         };
     }

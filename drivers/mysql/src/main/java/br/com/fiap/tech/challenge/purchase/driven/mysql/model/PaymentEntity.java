@@ -1,5 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.driven.mysql.model;
 
+import br.com.fiap.tech.challenge.enterprise.validation.URL;
 import br.com.fiap.tech.challenge.purchase.enterprise.enums.PaymentStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +36,11 @@ public class PaymentEntity extends UUIDEntity {
     @NotBlank
     @Column(name = "payment_id")
     private String paymentId;
+
+    @NotNull
+    @URL
+    @Column(name = "payment_url")
+    private String paymentUrl;
 
     @NotNull
     @Enumerated(EnumType.STRING)
