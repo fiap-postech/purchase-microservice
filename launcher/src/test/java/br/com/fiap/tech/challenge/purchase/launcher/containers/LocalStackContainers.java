@@ -20,7 +20,7 @@ public class LocalStackContainers {
         var image = DockerImageName.parse("fiapsoat2grupo13/localstack-resources:latest");
 
         var container = new GenericContainer<>(image)
-                .withStartupTimeout(Duration.ofSeconds(180))
+                .withStartupTimeout(Duration.ofSeconds(300))
                 .waitingFor(forLogMessage(".*End creating localstack resources.*\\n", 1));
 
         container.setPortBindings(List.of(

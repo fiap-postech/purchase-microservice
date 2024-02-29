@@ -15,6 +15,7 @@ dependencies {
     implementation project(":drivers:mysql")
     implementation project(":drivers:cart-closed-consumer")
     implementation project(":drivers:payment-done-consumer")
+    implementation project(":drivers:payment-created-consumer")
     implementation project(":drivers:purchase-created-producer")
     implementation project(":drivers:purchase-paid-producer")
     implementation project(":drivers:purchase-status-producer")

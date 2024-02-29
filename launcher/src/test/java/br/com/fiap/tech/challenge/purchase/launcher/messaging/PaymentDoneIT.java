@@ -75,6 +75,7 @@ class PaymentDoneIT {
         var message = new UpdatePaymentDTO(
                 UUID.randomUUID().toString(),
                 "754f95a6-1b54-42f8-ae6f-d4eb0ddd9df3",
+                "https://paga.eu/123",
                 PAID
         );
 
@@ -107,6 +108,7 @@ class PaymentDoneIT {
         var message = new UpdatePaymentDTO(
                 UUID.randomUUID().toString(),
                 "754f95a6-1b54-42f8-ae6f-d4eb0ddd9df3",
+                "https://paga.eu/123",
                 ERROR
         );
 

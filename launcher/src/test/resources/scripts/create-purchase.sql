@@ -17,6 +17,7 @@ insert
            (id, '7d79859c-5831-48d0-920b-b9affda68074', 'f1g6', '1e494f11-968d-4e15-98ec-864f22e9b21c', (select id from customer where document = '61673040845'), 'MAKING', curdate(), now(), now(), 0),
            (id, '0480c7c0-7c81-430c-bfec-1a17e9915c06', 'f2g6', '1e494f11-968d-4e15-98ec-864f22e9b22c', (select id from customer where document = '61673040845'), 'MADE', curdate(), now(), now(), 0),
            (id, '0ef0fa3c-4147-4cd2-9afd-0971afdb31e8', 'f3g6', '1e494f11-968d-4e15-98ec-864f22e9b23c', (select id from customer where document = '61673040845'), 'DELIVERED', curdate(), now(), now(), 0),
+           (id, '163e3c9f-5a97-4ba0-bab4-b69d11530771', 'f3g6', '1e494f11-968d-4e15-98ec-864f22e9b25c', (select id from customer where document = '61673040845'), 'WAITING_PAYMENT', curdate(), now(), now(), 0),
            (id, '754f95a6-1b54-42f8-ae6f-d4eb0ddd9df3', 'f9g6', '1e494f11-968d-4e15-98ec-864f22e9b24c', (select id from customer where document = '61673040845'), 'CREATED', curdate(), now(), now(), 0);
 
 insert

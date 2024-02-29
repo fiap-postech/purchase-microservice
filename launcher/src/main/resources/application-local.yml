@@ -13,6 +13,7 @@ aws:
     sqs:
       cart-closed.queue: local-purchase-cart-closed-queue
       payment-done.queue: local-purchase-payment-done-queue
+      payment-created.queue: local-payment-created-queue
     sns:
       purchase-created.topic: local-purchase-created-topic
       purchase-paid.topic: local-purchase-paid-topic
