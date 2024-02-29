@@ -38,6 +38,9 @@ findProject(':drivers:rest')?.name = 'rest'
 include 'drivers:payment-done-consumer'
 findProject(':drivers:payment-done-consumer')?.name = 'payment-done-consumer'
 
+include 'drivers:payment-created-consumer'
+findProject(':drivers:payment-created-consumer')?.name = 'payment-created-consumer'
+
 include 'drivers:cart-closed-consumer'
 findProject(':drivers:cart-closed-consumer')?.name = 'cart-closed-consumer'
 
