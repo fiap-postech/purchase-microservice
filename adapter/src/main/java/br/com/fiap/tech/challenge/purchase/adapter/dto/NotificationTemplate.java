@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus.CREATED;
+import static br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus.DELIVERED;
 import static br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus.MADE;
 import static br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus.MAKING;
 import static br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatus.PAID_ERROR;
@@ -18,7 +19,7 @@ import static br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatu
 @Getter
 public enum NotificationTemplate {
 
-    DEFAULT("PurchaseStatusDefaultTemplate", CREATED, MADE, MAKING, WAITING_MAKE, PAID_SUCCESS, PAID_ERROR),
+    DEFAULT("PurchaseStatusDefaultTemplate", CREATED, MADE, MAKING, WAITING_MAKE, PAID_SUCCESS, PAID_ERROR, DELIVERED),
     PAYMENT_CREATED("PurchaseStatusPaymentTemplate", WAITING_PAYMENT);
 
     private final List<PurchaseStatus> allowed;
