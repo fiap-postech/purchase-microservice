@@ -10,6 +10,7 @@ aws:
     sqs:
       cart-closed.queue: prd-purchase-cart-closed-queue
       payment-done.queue: prd-purchase-payment-done-queue
+      payment-created.queue: prd-purchase-payment-created-queue
     sns:
       purchase-created.topic: prd-purchase-created-topic
       purchase-paid.topic: prd-purchase-paid-topic
