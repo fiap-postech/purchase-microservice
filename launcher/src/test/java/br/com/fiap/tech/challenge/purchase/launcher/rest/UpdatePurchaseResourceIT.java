@@ -99,8 +99,8 @@ class UpdatePurchaseResourceIT {
     static Stream<PurchaseStatusChange> allowedStatusOptionsStream() {
         return Stream.of(
                 new PurchaseStatusChange("163e3c9f-5a97-4ba0-bab4-b69d11530771", PAID_SUCCESS),
-                new PurchaseStatusChange("163e3c9f-5a97-4ba0-bab4-b69d11530771", WAITING_PAYMENT),
-                new PurchaseStatusChange("e76cf4a5-0994-4729-972f-682529714120", PAID_ERROR),
+                new PurchaseStatusChange("e76cf4a5-0994-4729-972f-682529714120", WAITING_PAYMENT),
+                new PurchaseStatusChange("163e3c9f-5a97-4ba0-bab4-b69d11530771", PAID_ERROR),
                 new PurchaseStatusChange("086dd216-2ef7-432c-a27b-4c840624c98d", WAITING_MAKE),
                 new PurchaseStatusChange("0f97ed15-2b11-48b5-bc08-fbac61e40c27", MAKING),
                 new PurchaseStatusChange("7d79859c-5831-48d0-920b-b9affda68074", MADE),
