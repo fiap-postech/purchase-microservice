@@ -19,6 +19,6 @@ public class CustomerRemovedProducer implements CustomerRemovedRepository {
 
     @Override
     public void publish(RemoveCustomerDataDTO dto) {
-        sqs.send(to -> to.queue(queueName).payload(dto));
+        sqs.send(queueName, dto);
     }
 }
