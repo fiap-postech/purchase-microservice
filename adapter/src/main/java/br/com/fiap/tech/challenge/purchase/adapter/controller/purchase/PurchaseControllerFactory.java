@@ -7,6 +7,7 @@ import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurc
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseCreatedUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchasePaidUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PublishPurchaseStatusUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.RemoveCustomerDataUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePaymentUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePurchaseStatusUseCase;
 import lombok.AccessLevel;
@@ -33,5 +34,9 @@ public class PurchaseControllerFactory {
 
     public static FindAllPurchasesController findAllPurchasesController(FindAllPurchasesUseCase useCase, PurchasePresenter presenter) {
         return new FindAllPurchasesControllerImpl(useCase, presenter);
+    }
+
+    public static RemoveCustomerDataController removeCustomerDataController(RemoveCustomerDataUseCase useCase) {
+        return new RemoveCustomerDataControllerImpl(useCase);
     }
 }

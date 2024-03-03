@@ -1,5 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.launcher.configuration;
 
+import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerReaderGateway;
+import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerWriterGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchasePaidGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseReaderGateway;
@@ -12,8 +14,10 @@ import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurc
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchasePaidUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PublishPurchaseStatusUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PurchaseUseCaseFactory;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.RemoveCustomerDataUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePaymentUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.UpdatePurchaseStatusUseCase;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -58,5 +62,10 @@ public class UseCaseConfiguration {
     @Bean
     public FindPurchaseByUUIDUseCase findPurchaseByUUIDUseCase(PurchaseReaderGateway gateway) {
         return PurchaseUseCaseFactory.findPurchaseByUUIDUseCase(gateway);
+    }
+
+    @Bean
+    public RemoveCustomerDataUseCase removeCustomerDataUseCase(@Qualifier("customerReaderGateway") CustomerReaderGateway readerGateway, @Qualifier("customerWriterGateway") CustomerWriterGateway writerGateway) {
+        return PurchaseUseCaseFactory.removeCustomerDataUseCase(readerGateway, writerGateway);
     }
 }

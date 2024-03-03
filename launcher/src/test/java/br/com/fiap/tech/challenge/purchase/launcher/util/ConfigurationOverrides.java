@@ -18,14 +18,17 @@ public class ConfigurationOverrides {
 
     public static final int LOCAL_PORT = 8691;
 
-    public static void overrideConfiguration(DynamicPropertyRegistry registry, MySQLContainer<?> database, GenericContainer<?> localstack) {
+    public static void overrideConfiguration(DynamicPropertyRegistry registry,
+                                             MySQLContainer<?> database,
+                                             GenericContainer<?> localstack) {
+
         localstack.followOutput(new Slf4jLogConsumer(LOGGER));
 
-        System.setProperty("spring.datasource.url", database.getJdbcUrl());
-        System.setProperty("spring.datasource.username", database.getUsername());
-        System.setProperty("spring.datasource.password", database.getPassword());
+        registry.add("spring.datasource.url", database::getJdbcUrl);
+        registry.add("spring.datasource.username", database::getUsername);
+        registry.add("spring.datasource.password", database::getPassword);
 
-        System.setProperty("server.port", String.valueOf(LOCAL_PORT));
+        registry.add("server.port", () -> String.valueOf(LOCAL_PORT));
 
         RestAssured.port = LOCAL_PORT;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();

@@ -1,5 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.application.usecase.purchase;
 
+import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerReaderGateway;
+import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerWriterGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchasePaidGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseReaderGateway;
@@ -41,5 +43,9 @@ public class PurchaseUseCaseFactory {
 
     public static FindPurchaseByUUIDUseCase findPurchaseByUUIDUseCase(PurchaseReaderGateway gateway) {
         return new FindPurchaseByUUIDUseCaseImpl(gateway);
+    }
+
+    public static RemoveCustomerDataUseCase removeCustomerDataUseCase(CustomerReaderGateway readerGateway, CustomerWriterGateway writerGateway) {
+        return new RemoveCustomerDataUseCaseImpl(readerGateway, writerGateway);
     }
 }

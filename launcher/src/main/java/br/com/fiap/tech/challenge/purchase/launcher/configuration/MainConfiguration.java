@@ -1,5 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.launcher.configuration;
 
+import br.com.fiap.tech.challenge.purchase.driven.customer.data.removal.consumer.config.CustomerDataRemovalConsumerConfiguration;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.config.MySQLConfiguration;
 import br.com.fiap.tech.challenge.purchase.driven.purchase.created.producer.config.PurchaseCreatedProducerConfiguration;
 import br.com.fiap.tech.challenge.purchase.driven.purchase.paid.producer.config.PurchasePaidProducerConfiguration;
@@ -25,6 +26,7 @@ import software.amazon.awssdk.services.sns.SnsClient;
         PurchasePaidProducerConfiguration.class,
         PurchaseStatusProducerConfiguration.class,
         CartClosedConsumerConfiguration.class,
+        CustomerDataRemovalConsumerConfiguration.class,
 })
 public class MainConfiguration {
 

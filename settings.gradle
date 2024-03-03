@@ -44,6 +44,9 @@ findProject(':drivers:payment-created-consumer')?.name = 'payment-created-consum
 include 'drivers:cart-closed-consumer'
 findProject(':drivers:cart-closed-consumer')?.name = 'cart-closed-consumer'
 
+include 'drivers:customer-data-removal-consumer'
+findProject(':drivers:customer-data-removal-consumer')?.name = 'customer-data-removal-consumer'
+
 include 'drivers:purchase-created-producer'
 findProject(':drivers:purchase-created-producer')?.name = 'purchase-created-producer'
 
