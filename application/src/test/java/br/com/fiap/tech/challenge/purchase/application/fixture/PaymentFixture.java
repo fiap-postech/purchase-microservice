@@ -18,9 +18,8 @@ public class PaymentFixture {
 
     public static Model<Payment> paymentModel() {
         return Instancio.of(Payment.class)
-                .generate(field(Payment::date), gen -> gen.temporal().localDate())
-                .set(field(Payment::amount), makeMoney(BigDecimal.valueOf(15.00)))
-                .set(field(Payment::method), PaymentMethod.PAID_MARKET)
+                .generate(field(Payment::id), gen -> gen.text().uuid())
+                .set(field(Payment::url), "https://paga.eu/2345")
                 .set(field(Payment::status), PaymentStatus.PAID)
                 .toModel();
     }

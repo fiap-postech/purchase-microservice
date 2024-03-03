@@ -1,17 +1,18 @@
 package br.com.fiap.tech.challenge.purchase.driven.mysql.service;
 
+import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseWriterRepository;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.mapping.DBPaymentMapper;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.mapping.DBPurchaseMapper;
-import br.com.fiap.tech.challenge.purchase.driven.mysql.model.PaymentEntity;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.model.PurchaseEntity;
-import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PaymentEntityRepository;
 import br.com.fiap.tech.challenge.purchase.driven.mysql.repository.PurchaseEntityRepository;
-import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
-import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseWriterRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.function.Function;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Service
 @RequiredArgsConstructor
@@ -20,39 +21,34 @@ public class DBPurchaseEntityWriterRepositoryImpl implements PurchaseWriterRepos
     private final DBPurchaseMapper dbPurchaseMapper;
     private final DBPaymentMapper dbPaymentMapper;
     private final PurchaseEntityRepository purchaseRepository;
-    private final PaymentEntityRepository paymentRepository;
 
     @Override
-    @Transactional
     public PurchaseDTO write(PurchaseDTO purchase) {
-        var purchaseEntity = savePurchase(purchase);
-
-        var paymentEntity = getPaymentEntity(purchase);
-        paymentEntity.setPurchase(purchaseEntity);
-
-        paymentRepository.save(paymentEntity);
-
-        return dbPurchaseMapper.toDTO(purchaseEntity);
-    }
-
-    private PaymentEntity getPaymentEntity(PurchaseDTO purchase) {
-        var paymentEntity = dbPaymentMapper.toEntity(purchase.getPayment());
-        var paymentEntityOpt = paymentRepository.findByPurchaseUuid(purchase.getId());
-        paymentEntityOpt.ifPresent(entity -> BeanUtils.copyProperties(entity, paymentEntity, "status"));
-        return paymentEntity;
-    }
-
-    private PurchaseEntity savePurchase(PurchaseDTO purchase) {
         var purchaseEntity = getPurchaseEntity(purchase);
-        return purchaseRepository.save(purchaseEntity);
+
+        if (isNull(purchaseEntity.getPayment()) && nonNull(purchase.getPayment())) {
+            purchaseEntity.setPayment(dbPaymentMapper.toEntity(purchase.getPayment()));
+        }
+
+        return dbPurchaseMapper.toDTO(purchaseRepository.save(purchaseEntity));
     }
 
     private PurchaseEntity getPurchaseEntity(PurchaseDTO purchase) {
-        var purchaseEntity = dbPurchaseMapper.toEntity(purchase);
+        return purchaseRepository.findByUuid(purchase.getId())
+                .map(updateFields(purchase))
+                .orElseGet(() -> dbPurchaseMapper.toEntity(purchase));
+    }
 
-        purchaseRepository.findByUuid(purchase.getId())
-                .ifPresent(entity -> BeanUtils.copyProperties(entity, purchaseEntity, "status"));
+    private Function<PurchaseEntity, PurchaseEntity> updateFields(PurchaseDTO dto) {
+        return entity -> {
+            entity.setStatus(dto.getStatus());
 
-        return purchaseEntity;
+            if (dto.getPayment().getStatus() != entity.getPayment().getStatus()) {
+                entity.getPayment().setStatus(dto.getPayment().getStatus());
+            }
+
+
+            return entity;
+        };
     }
 }

@@ -26,8 +26,7 @@ public class PurchaseInputDTOFixture {
                 .generate(field(PurchaseInputDTO::getDate), gen -> gen.temporal().localDate())
                 .set(field(PurchaseInputDTO::getItems), List.of(Instancio.create(singleBeverageInputItemDTO())))
                 .set(field(PurchaseInputDTO::getCustomer), Instancio.create(customerInputDTO()))
-                .set(field(PurchaseInputDTO::getPayment), Instancio.create(paymentInputDTO()))
-                .set(field(PurchaseInputDTO::getStatus), PurchaseStatus.PAID)
+                .set(field(PurchaseInputDTO::getStatus), PurchaseStatus.CREATED)
                 .toModel();
     }
 

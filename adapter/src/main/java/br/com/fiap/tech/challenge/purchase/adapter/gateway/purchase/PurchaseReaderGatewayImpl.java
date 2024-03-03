@@ -26,4 +26,9 @@ class PurchaseReaderGatewayImpl implements PurchaseReaderGateway {
     public Purchase readById(UUID id) {
         return PurchaseMapper.INSTANCE.toDomain(repository.readById(id.toString()));
     }
+
+    @Override
+    public boolean existsByExternalId(String id) {
+        return repository.existsByExternalId(id);
+    }
 }

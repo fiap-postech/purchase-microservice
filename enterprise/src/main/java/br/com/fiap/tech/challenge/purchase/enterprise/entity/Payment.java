@@ -1,19 +1,20 @@
 package br.com.fiap.tech.challenge.purchase.enterprise.entity;
 
 import br.com.fiap.tech.challenge.enterprise.entity.Entity;
-import br.com.fiap.tech.challenge.purchase.enterprise.enums.PaymentMethod;
+import br.com.fiap.tech.challenge.enterprise.validation.URL;
 import br.com.fiap.tech.challenge.purchase.enterprise.enums.PaymentStatus;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import org.javamoney.moneta.Money;
 
 import java.io.Serial;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 @Getter
 @Accessors(fluent = true)
@@ -24,35 +25,31 @@ public class Payment extends Entity {
     private static final long serialVersionUID = 2733420553391362792L;
 
     @NotNull
-    private final LocalDate date;
+    @NotBlank
+    private final String id;
 
     @NotNull
     private final PaymentStatus status;
 
     @NotNull
-    private final PaymentMethod method;
+    private final LocalDateTime created;
 
-    @NotNull
-    @Positive
-    private final Money amount;
+    @URL
+    private final String url;
 
     @Builder(toBuilder = true)
     public Payment(@Builder.ObtainVia(method = "uuid") UUID uuid,
-                   @NotNull LocalDate date,
+                   @NotNull String id,
                    @NotNull PaymentStatus status,
-                   @NotNull PaymentMethod method,
-                   @NotNull Money amount) {
+                   LocalDateTime created,
+                   String url) {
         super(uuid);
 
-        this.date = date;
+        this.id = id;
         this.status = status;
-        this.method = method;
-        this.amount = amount;
+        this.created = defaultIfNull(created, LocalDateTime.now());
+        this.url = url;
 
         validate();
-    }
-
-    public boolean isSuccessful() {
-        return PaymentStatus.PAID.equals(status());
     }
 }

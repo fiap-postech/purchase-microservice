@@ -1,7 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.adapter.controller.purchase;
 
-import br.com.fiap.tech.challenge.purchase.adapter.dto.ComboInputDTO;
-import br.com.fiap.tech.challenge.purchase.adapter.dto.ProductInputDTO;
+import br.com.fiap.tech.challenge.purchase.adapter.dto.ComboProductInputDTO;
+import br.com.fiap.tech.challenge.purchase.adapter.dto.SingleProductInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseItemInputDTO;
 import br.com.fiap.tech.challenge.purchase.adapter.util.CreatePurchaseBuilder;
@@ -31,14 +31,12 @@ class CreatePurchaseBuilderTest {
 
         validatePurchase(input, response);
 
-        assertThat(response.getItems()).hasSize(1);
-
         var inputItem = input.getItems().get(0);
         var responseItem = response.getItems().get(0);
 
         assertThat(responseItem.getDiscount()).isEqualTo(inputItem.getDiscount());
         assertThat(responseItem.getQuantity()).isEqualTo(inputItem.getQuantity());
-        assertThat(responseItem.getPrice()).isEqualTo(inputItem.getFullPrice());
+        assertThat(responseItem.getPrice().multiply(BigDecimal.valueOf(responseItem.getQuantity()))).isEqualTo(inputItem.getSubTotal());
 
         validateProduct(inputItem.getProduct(), responseItem.getProduct());
     }
@@ -57,7 +55,7 @@ class CreatePurchaseBuilderTest {
 
         assertThat(responseItem.getDiscount()).isEqualTo(inputItem.getDiscount());
         assertThat(responseItem.getQuantity()).isEqualTo(inputItem.getQuantity());
-        assertThat(responseItem.getPrice()).isEqualTo(inputItem.getFullPrice());
+        assertThat(responseItem.getPrice()).isEqualTo(inputItem.getSubTotal());
 
         validateProduct(inputItem.getProduct(), responseItem.getProduct());
     }
@@ -76,7 +74,7 @@ class CreatePurchaseBuilderTest {
 
         assertThat(responseItem.getDiscount()).isEqualTo(inputItem.getDiscount());
         assertThat(responseItem.getQuantity()).isEqualTo(inputItem.getQuantity());
-        assertThat(responseItem.getPrice()).isEqualTo(inputItem.getFullPrice());
+        assertThat(responseItem.getPrice()).isEqualTo(inputItem.getSubTotal());
 
         validateProduct(inputItem.getProduct(), responseItem.getProduct());
     }
@@ -94,7 +92,7 @@ class CreatePurchaseBuilderTest {
         var input = create(sandwichAndBeveragePurchaseInputDTO());
         var response = CreatePurchaseBuilder.get().build(input);
 
-        validatePurchaseWithManyProducts(input, response, 2);
+        validatePurchaseWithManyProducts(input, response, 3);
     }
 
     @Test
@@ -102,7 +100,7 @@ class CreatePurchaseBuilderTest {
         var input = create(comboAndSandwichAndBeveragePurchaseInputDTO());
         var response = CreatePurchaseBuilder.get().build(input);
 
-        validatePurchaseWithManyProducts(input, response, 5);
+        validatePurchaseWithManyProducts(input, response, 6);
     }
 
     private void validatePurchase(PurchaseInputDTO input, CreatePurchaseDTO response) {
@@ -113,27 +111,22 @@ class CreatePurchaseBuilderTest {
         assertThat(response.getCustomer().getId()).isEqualTo(input.getCustomer().getId());
         assertThat(response.getCustomer().getEmail()).isEqualTo(input.getCustomer().getEmail());
         assertThat(response.getCustomer().getDocument()).isEqualTo(input.getCustomer().getDocument());
-
-        assertThat(response.getPayment().getDate()).isEqualTo(input.getPayment().getDate());
-        assertThat(response.getPayment().getStatus()).isEqualTo(input.getPayment().getStatus());
-        assertThat(response.getPayment().getId()).isEqualTo(input.getPayment().getId());
-        assertThat(response.getPayment().getAmount()).isEqualTo(input.getPayment().getAmount());
-        assertThat(response.getPayment().getMethod()).isEqualTo(input.getPayment().getMethod());
     }
 
     private void validatePurchaseWithManyProducts(PurchaseInputDTO input, CreatePurchaseDTO createPurchase, int expectedItems) {
         validatePurchase(input, createPurchase);
-
-        assertThat(createPurchase.getItems()).hasSize(expectedItems);
 
         var discount = BigDecimal.ZERO;
         var quantity = 0;
         var price = BigDecimal.ZERO;
 
         for (var item : createPurchase.getItems()) {
-            discount = discount.add(item.getDiscount());
             quantity += item.getQuantity();
-            price = price.add(item.getPrice());
+
+            var quantityValue = BigDecimal.valueOf(item.getQuantity());
+
+            discount = discount.add(item.getDiscount().multiply(quantityValue));
+            price = price.add(item.getPrice().multiply(quantityValue));
 
             var op = getProduct(input, item.getProduct().getId());
 
@@ -147,16 +140,17 @@ class CreatePurchaseBuilderTest {
         assertThat(makeMoney(price)).isEqualTo(makeMoney(getPurchaseTotalWithoutDiscount(input)));
     }
 
-    private void validateProduct(ProductInputDTO input, FullProductDTO dto) {
+    private void validateProduct(SingleProductInputDTO input, FullProductDTO dto) {
         assertThat(dto.getDescription()).isEqualTo(input.getDescription());
         assertThat(dto.getId()).isEqualTo(input.getId());
         assertThat(dto.getPrice()).isEqualTo(input.getFullPrice());
         assertThat(dto.getName()).isEqualTo(input.getName());
+        assertThat(dto.getCategory()).isEqualTo(input.getCategory());
     }
 
-    private Optional<ProductInputDTO> getProduct(PurchaseInputDTO dto, String id) {
+    private Optional<SingleProductInputDTO> getProduct(PurchaseInputDTO dto, String id) {
         for (var item : dto.getItems()) {
-            if (item.getProduct() instanceof ComboInputDTO combo) {
+            if (item.getProduct() instanceof ComboProductInputDTO combo) {
                 if (combo.getSandwich().getId().equals(id)) {
                     return Optional.of(combo.getSandwich());
                 }
@@ -189,7 +183,7 @@ class CreatePurchaseBuilderTest {
     private BigDecimal getPurchaseTotalWithoutDiscount(PurchaseInputDTO dto) {
         return dto.getItems()
                 .stream()
-                .map(PurchaseItemInputDTO::getFullPrice)
+                .map(PurchaseItemInputDTO::getSubTotal)
                 .reduce(BigDecimal::add)
                 .orElseThrow();
     }

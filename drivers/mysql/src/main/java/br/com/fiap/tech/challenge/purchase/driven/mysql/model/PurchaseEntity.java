@@ -7,7 +7,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static java.util.Objects.isNull;
 
 @Entity
 @Table(name = "purchase")
@@ -38,19 +42,34 @@ public class PurchaseEntity extends JPAEntity {
     private PurchaseStatus status;
 
     @NotNull
+    private String code;
+
+    @NotNull
     private LocalDate date;
 
     @NotNull
     @OneToMany(mappedBy = "purchase", cascade = ALL)
     private List<PurchaseItemEntity> items = new ArrayList<>();
 
-    public void addItem(PurchaseItemEntity item) {
-        item.setPurchase(this);
-        getItems().add(item);
-    }
+    @OneToOne(mappedBy = "purchase", cascade = ALL)
+    @PrimaryKeyJoinColumn
+    private PaymentEntity payment;
+
+    @NotBlank
+    private String externalId;
 
     public void setItems(List<PurchaseItemEntity> items) {
         this.items = items;
         this.items.forEach(i -> i.setPurchase(this));
+    }
+
+    public PurchaseEntity setPayment(PaymentEntity payment) {
+        if (isNull(payment)) {
+            return this;
+        }
+
+        this.payment = payment;
+        this.payment.setPurchase(this);
+        return this;
     }
 }

@@ -12,6 +12,7 @@ public interface CreatePurchaseDTOMapping {
     CreatePurchaseDTOMapping INSTANCE = Mappers.getMapper(CreatePurchaseDTOMapping.class);
 
     @Mapping(target = "items", ignore = true)
+    @Mapping(target = "externalId", source = "id")
     CreatePurchaseDTO toCreatePurchaseDTO(PurchaseInputDTO dto);
 
 }

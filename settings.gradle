@@ -38,5 +38,20 @@ findProject(':drivers:rest')?.name = 'rest'
 include 'drivers:payment-done-consumer'
 findProject(':drivers:payment-done-consumer')?.name = 'payment-done-consumer'
 
+include 'drivers:payment-created-consumer'
+findProject(':drivers:payment-created-consumer')?.name = 'payment-created-consumer'
+
+include 'drivers:cart-closed-consumer'
+findProject(':drivers:cart-closed-consumer')?.name = 'cart-closed-consumer'
+
+include 'drivers:customer-data-removal-consumer'
+findProject(':drivers:customer-data-removal-consumer')?.name = 'customer-data-removal-consumer'
+
 include 'drivers:purchase-created-producer'
 findProject(':drivers:purchase-created-producer')?.name = 'purchase-created-producer'
+
+include 'drivers:purchase-paid-producer'
+findProject(':drivers:purchase-paid-producer')?.name = 'purchase-paid-producer'
+
+include 'drivers:purchase-status-producer'
+findProject(':drivers:purchase-status-producer')?.name = 'purchase-status-producer'

@@ -1,5 +1,6 @@
 package br.com.fiap.tech.challenge.purchase.application.dto;
 
+import br.com.fiap.tech.challenge.purchase.enterprise.enums.ProductCategory;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -18,4 +19,5 @@ public class FullProductDTO implements Serializable {
     private String name;
     private String description;
     private BigDecimal price;
+    private ProductCategory category;
 }

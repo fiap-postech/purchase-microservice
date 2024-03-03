@@ -32,6 +32,7 @@ allprojects {
     dependencies {
         testImplementation sharedLibs.junit.jupiter.api
         testImplementation sharedLibs.lombok
+        testAnnotationProcessor sharedLibs.lombok
         testRuntimeOnly sharedLibs.junit.jupiter.engine
 
         implementation sharedLibs.commons.lang3

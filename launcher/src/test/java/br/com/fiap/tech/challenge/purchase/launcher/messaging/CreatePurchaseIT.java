@@ -1,13 +1,16 @@
 package br.com.fiap.tech.challenge.purchase.launcher.messaging;
 
 import br.com.fiap.tech.challenge.purchase.adapter.dto.PurchaseInputDTO;
+import br.com.fiap.tech.challenge.purchase.application.dto.PurchaseDTO;
 import br.com.fiap.tech.challenge.purchase.launcher.config.TestConfiguration;
+import br.com.fiap.tech.challenge.purchase.launcher.service.QueueService;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.instancio.Model;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -32,17 +35,20 @@ import static br.com.fiap.tech.challenge.purchase.launcher.fixture.input.Purchas
 import static br.com.fiap.tech.challenge.purchase.launcher.fixture.input.PurchaseInputDTOFixture.singleSideDishPurchaseInputDTO;
 import static br.com.fiap.tech.challenge.purchase.launcher.util.ConfigurationOverrides.overrideConfiguration;
 import static br.com.fiap.tech.challenge.purchase.launcher.util.PurchaseUtil.getAllPurchases;
+import static br.com.fiap.tech.challenge.purchase.launcher.util.PurchaseUtil.getCartClosedQueueName;
 import static br.com.fiap.tech.challenge.purchase.launcher.util.PurchaseUtil.getPaymentDoneQueueName;
 import static br.com.fiap.tech.challenge.purchase.launcher.util.QueueUtil.sendMessage;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.given;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
         classes = TestConfiguration.class
 )
-@ActiveProfiles({ "test" })
+@ActiveProfiles({"test"})
 @Testcontainers
 @DirtiesContext(classMode = AFTER_CLASS)
 class CreatePurchaseIT {
@@ -59,6 +65,9 @@ class CreatePurchaseIT {
     @Autowired
     private SqsTemplate sqsTemplate;
 
+    @MockBean
+    private QueueService queueService;
+
     @DynamicPropertySource
     static void overrideConfig(DynamicPropertyRegistry registry) {
         overrideConfiguration(registry, DATABASE, LOCAL_STACK_CONTAINER);
@@ -72,10 +81,9 @@ class CreatePurchaseIT {
         var responseBeforeTest = getAllPurchases();
         var countBeforeTest = responseBeforeTest.totalElements();
 
-        sendMessage(sqsTemplate, getPaymentDoneQueueName(env), message);
+        sendMessage(sqsTemplate, getCartClosedQueueName(env), message);
 
-        given()
-                .await()
+        given().await()
                 .pollInterval(Duration.ofSeconds(2))
                 .atMost(Duration.ofSeconds(20))
                 .ignoreExceptions()
@@ -84,6 +92,8 @@ class CreatePurchaseIT {
 
                     assertThat(response.totalElements()).isEqualTo(countBeforeTest + 1);
                 });
+
+        verify(queueService).received(any(PurchaseDTO.class));
     }
 
     static Stream<Model<PurchaseInputDTO>> getCreateOptions() {

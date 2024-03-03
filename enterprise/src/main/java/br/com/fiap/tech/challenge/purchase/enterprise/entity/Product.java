@@ -2,6 +2,7 @@ package br.com.fiap.tech.challenge.purchase.enterprise.entity;
 
 import br.com.fiap.tech.challenge.enterprise.entity.Entity;
 import br.com.fiap.tech.challenge.enterprise.valueobject.Price;
+import br.com.fiap.tech.challenge.purchase.enterprise.enums.ProductCategory;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,13 +31,21 @@ public class Product extends Entity {
     @Valid
     private final Price price;
 
+    @NotNull
+    private final ProductCategory category;
+
     @Builder(toBuilder = true)
-    protected Product(@Builder.ObtainVia(method = "uuid") UUID uuid, String name, String description, @NotNull Price price) {
+    protected Product(@Builder.ObtainVia(method = "uuid") UUID uuid,
+                      @NotBlank String name,
+                      @NotBlank String description,
+                      @NotNull Price price,
+                      @NotNull ProductCategory category) {
         super(uuid);
 
         this.name = name;
         this.description = description;
         this.price = price;
+        this.category = category;
 
         validate();
     }

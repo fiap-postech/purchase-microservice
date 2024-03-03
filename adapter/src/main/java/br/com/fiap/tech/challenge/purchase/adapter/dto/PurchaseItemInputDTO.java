@@ -13,9 +13,9 @@ public class PurchaseItemInputDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = -3104288659566784282L;
 
-    private ProductInputDTO product;
+    private SingleProductInputDTO product;
     private Integer quantity;
-    private BigDecimal fullPrice;
-    private BigDecimal price;
+    private BigDecimal subTotal;
+    private BigDecimal total;
     private BigDecimal discount;
 }

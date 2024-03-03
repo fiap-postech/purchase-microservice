@@ -17,4 +17,6 @@ public interface PurchaseEntityRepository extends JpaRepository<PurchaseEntity, 
             "where p.status <> 'FINISHED' " +
             "order by FIELD(p.status, 'DELIVERED','MADE','MAKING','WAITING_MAKE','PAID')")
     Page<PurchaseEntity> findPurchaseQueue(Pageable page);
+
+    boolean existsByExternalId(String id);
 }

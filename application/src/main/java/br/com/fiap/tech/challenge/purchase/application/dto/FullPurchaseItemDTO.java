@@ -13,8 +13,10 @@ public class FullPurchaseItemDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = -3104288659566784282L;
 
+    private Long sequence;
     private FullProductDTO product;
     private Integer quantity;
+    private String currencyId;
     private BigDecimal price;
     private BigDecimal discount;
 }

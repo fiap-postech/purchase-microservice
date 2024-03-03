@@ -4,7 +4,6 @@ services:
   mysql:
     container_name: mysql
     image: mysql:8.0
-    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: "P@55W0rD"
     ports:
@@ -25,7 +24,6 @@ services:
   localstack:
     container_name: localstack
     image: fiapsoat2grupo13/localstack-resources:latest
-    platform: linux/amd64
     ports:
       - "127.0.0.1:4566:4566"            # LocalStack Gateway
       - "127.0.0.1:4510-4559:4510-4559"  # external services port range

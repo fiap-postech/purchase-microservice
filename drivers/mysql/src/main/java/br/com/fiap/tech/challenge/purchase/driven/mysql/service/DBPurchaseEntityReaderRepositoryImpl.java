@@ -36,6 +36,11 @@ public class DBPurchaseEntityReaderRepositoryImpl implements PurchaseReaderRepos
                 .orElseThrow(() -> new ApplicationException(PURCHASE_NOT_FOUND_BY_UUID, id));
     }
 
+    @Override
+    public boolean existsByExternalId(String id) {
+        return repository.existsByExternalId(id);
+    }
+
     private ResponseList<PurchaseDTO> readAll(Page page, Function<Pageable, org.springframework.data.domain.Page<PurchaseEntity>> reader) {
         var result = reader.apply(PageRequest.of(page.number(), page.size()));
 
