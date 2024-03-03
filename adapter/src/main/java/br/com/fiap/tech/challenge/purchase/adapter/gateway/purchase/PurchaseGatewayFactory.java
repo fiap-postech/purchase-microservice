@@ -1,6 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.adapter.gateway.purchase;
 
 import br.com.fiap.tech.challenge.purchase.adapter.repository.CustomerReaderRepository;
+import br.com.fiap.tech.challenge.purchase.adapter.repository.CustomerRemovedRepository;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.CustomerWriterRepository;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseCreatedRepository;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchasePaidRepository;
@@ -8,6 +9,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseReaderRepo
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseStatusRepository;
 import br.com.fiap.tech.challenge.purchase.adapter.repository.PurchaseWriterRepository;
 import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerReaderGateway;
+import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerRemovedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerWriterGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchasePaidGateway;
@@ -46,6 +48,10 @@ public class PurchaseGatewayFactory {
 
     public static CustomerWriterGateway customerWriterGateway(CustomerReaderRepository readerRepository, CustomerWriterRepository writerRepository) {
         return new CustomerGatewayImpl(readerRepository, writerRepository);
+    }
+
+    public static CustomerRemovedGateway customerRemovedGateway(CustomerRemovedRepository repository) {
+        return new CustomerRemovedGatewayImpl(repository);
     }
 
 }

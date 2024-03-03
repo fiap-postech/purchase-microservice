@@ -4,6 +4,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.presenter.PurchasePresenter;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindAllPurchasesUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurchaseByUUIDUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostCustomerRemovedUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseCreatedUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchasePaidUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PublishPurchaseStatusUseCase;
@@ -36,7 +37,7 @@ public class PurchaseControllerFactory {
         return new FindAllPurchasesControllerImpl(useCase, presenter);
     }
 
-    public static RemoveCustomerDataController removeCustomerDataController(RemoveCustomerDataUseCase useCase) {
-        return new RemoveCustomerDataControllerImpl(useCase);
+    public static RemoveCustomerDataController removeCustomerDataController(RemoveCustomerDataUseCase removeUseCase, PostCustomerRemovedUseCase postRemovedUseCase) {
+        return new RemoveCustomerDataControllerImpl(removeUseCase, postRemovedUseCase);
     }
 }

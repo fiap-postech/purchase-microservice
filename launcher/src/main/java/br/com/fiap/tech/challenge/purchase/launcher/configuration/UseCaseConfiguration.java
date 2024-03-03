@@ -1,6 +1,7 @@
 package br.com.fiap.tech.challenge.purchase.launcher.configuration;
 
 import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerReaderGateway;
+import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerRemovedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.CustomerWriterGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseCreatedGateway;
 import br.com.fiap.tech.challenge.purchase.application.gateway.PurchasePaidGateway;
@@ -10,6 +11,7 @@ import br.com.fiap.tech.challenge.purchase.application.gateway.PurchaseWriterGat
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindAllPurchasesUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurchaseByUUIDUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostCustomerRemovedUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseCreatedUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchasePaidUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PublishPurchaseStatusUseCase;
@@ -67,5 +69,10 @@ public class UseCaseConfiguration {
     @Bean
     public RemoveCustomerDataUseCase removeCustomerDataUseCase(@Qualifier("customerReaderGateway") CustomerReaderGateway readerGateway, @Qualifier("customerWriterGateway") CustomerWriterGateway writerGateway) {
         return PurchaseUseCaseFactory.removeCustomerDataUseCase(readerGateway, writerGateway);
+    }
+
+    @Bean
+    public PostCustomerRemovedUseCase postCustomerRemovedUseCase(CustomerRemovedGateway gateway) {
+        return PurchaseUseCaseFactory.postCustomerRemovedUseCase(gateway);
     }
 }
