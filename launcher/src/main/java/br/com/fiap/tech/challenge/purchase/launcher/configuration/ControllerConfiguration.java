@@ -11,6 +11,7 @@ import br.com.fiap.tech.challenge.purchase.adapter.presenter.PurchasePresenter;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.CreatePurchaseUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindAllPurchasesUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.FindPurchaseByUUIDUseCase;
+import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostCustomerRemovedUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchaseCreatedUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PostPurchasePaidUseCase;
 import br.com.fiap.tech.challenge.purchase.application.usecase.purchase.PublishPurchaseStatusUseCase;
@@ -49,7 +50,7 @@ public class ControllerConfiguration {
     }
 
     @Bean
-    public RemoveCustomerDataController removeCustomerDataController(RemoveCustomerDataUseCase useCase) {
-        return PurchaseControllerFactory.removeCustomerDataController(useCase);
+    public RemoveCustomerDataController removeCustomerDataController(RemoveCustomerDataUseCase removeUseCase, PostCustomerRemovedUseCase postRemovedUseCase) {
+        return PurchaseControllerFactory.removeCustomerDataController(removeUseCase, postRemovedUseCase);
     }
 }

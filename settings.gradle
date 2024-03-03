@@ -55,3 +55,6 @@ findProject(':drivers:purchase-paid-producer')?.name = 'purchase-paid-producer'
 
 include 'drivers:purchase-status-producer'
 findProject(':drivers:purchase-status-producer')?.name = 'purchase-status-producer'
+
+include 'drivers:customer-removed-producer'
+findProject(':drivers:customer-removed-producer')?.name = 'customer-removed-producer'
