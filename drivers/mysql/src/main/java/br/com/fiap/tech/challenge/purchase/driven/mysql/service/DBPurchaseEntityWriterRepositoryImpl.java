@@ -43,10 +43,9 @@ public class DBPurchaseEntityWriterRepositoryImpl implements PurchaseWriterRepos
         return entity -> {
             entity.setStatus(dto.getStatus());
 
-            if (dto.getPayment().getStatus() != entity.getPayment().getStatus()) {
+            if (nonNull(entity.getPayment()) && dto.getPayment().getStatus() != entity.getPayment().getStatus()) {
                 entity.getPayment().setStatus(dto.getPayment().getStatus());
             }
-
 
             return entity;
         };

@@ -13,7 +13,7 @@ aws:
     sqs:
       cart-closed.queue: local-purchase-cart-closed-queue
       payment-done.queue: local-purchase-payment-done-queue
-      payment-created.queue: local-payment-created-queue
+      payment-created.queue: local-purchase-payment-created-queue
       customer-remove-data.queue: local-purchase-remove-customer-data-queue
       customer-remove-data-response.queue: local-customer-remove-data-response-queue
     sns:
@@ -27,3 +27,6 @@ spring:
       endpoint: http://localhost:4566
       region:
         static: us-east-1
+      credentials:
+        access-key: "aa"
+        secret-key: "aaa"
