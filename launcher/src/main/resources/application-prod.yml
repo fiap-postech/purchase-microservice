@@ -11,6 +11,8 @@ aws:
       cart-closed.queue: prd-purchase-cart-closed-queue
       payment-done.queue: prd-purchase-payment-done-queue
       payment-created.queue: prd-purchase-payment-created-queue
+      customer-remove-data.queue: prd-purchase-remove-customer-data-queue
+      customer-remove-data-response.queue: prd-customer-remove-data-response-queue
     sns:
       purchase-created.topic: prd-purchase-created-topic
       purchase-paid.topic: prd-purchase-paid-topic

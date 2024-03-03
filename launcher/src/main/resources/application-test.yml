@@ -14,6 +14,8 @@ aws:
       cart-closed.queue: local-purchase-cart-closed-queue
       payment-done.queue: local-purchase-payment-done-queue
       payment-created.queue: local-payment-created-queue
+      customer-remove-data.queue: local-purchase-remove-customer-data-queue
+      customer-remove-data-response.queue: local-customer-remove-data-response-queue
     sns:
       purchase-created.topic: local-purchase-created-topic
       purchase-paid.topic: local-purchase-paid-topic
