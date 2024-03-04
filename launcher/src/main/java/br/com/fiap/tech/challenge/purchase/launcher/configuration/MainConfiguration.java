@@ -10,12 +10,16 @@ import br.com.fiap.tech.challenge.purchase.driver.cart.closed.consumer.config.Ca
 import br.com.fiap.tech.challenge.purchase.driver.payment.created.consumer.config.PaymentCreatedConsumerConfiguration;
 import br.com.fiap.tech.challenge.purchase.driver.payment.done.consumer.config.PaymentDoneConsumerConfiguration;
 import br.com.fiap.tech.challenge.purchase.rest.config.RestConfiguration;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.awspring.cloud.sns.core.TopicArnResolver;
 import io.awspring.cloud.sns.core.TopicsListingTopicArnResolver;
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sqs.SqsAsyncClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 
 @Configuration
 @Import({
@@ -35,6 +39,17 @@ public class MainConfiguration {
     @Bean
     public TopicArnResolver topicArnResolver(SnsClient snsClient) {
         return new TopicsListingTopicArnResolver(snsClient);
+    }
+
+    @Bean
+    public SqsTemplate sqsTemplate(SqsAsyncClient client, ObjectMapper mapper) {
+        return SqsTemplate.builder()
+                .sqsAsyncClient(client)
+                .configureDefaultConverter(converter -> {
+                    converter.setObjectMapper(mapper);
+                    converter.setPayloadTypeHeaderValueFunction(m -> null);
+                })
+                .build();
     }
 
 }
