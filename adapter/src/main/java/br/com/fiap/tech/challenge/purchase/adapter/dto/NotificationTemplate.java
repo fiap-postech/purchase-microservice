@@ -19,8 +19,9 @@ import static br.com.fiap.tech.challenge.purchase.enterprise.enums.PurchaseStatu
 @Getter
 public enum NotificationTemplate {
 
-    DEFAULT("PurchaseStatusDefaultTemplate", CREATED, MADE, MAKING, WAITING_MAKE, PAID_SUCCESS, PAID_ERROR, DELIVERED),
-    PAYMENT_CREATED("PurchaseStatusPaymentTemplate", WAITING_PAYMENT);
+    DEFAULT("PurchaseStatusDefaultTemplate", CREATED, MADE, MAKING, WAITING_MAKE, PAID_SUCCESS, DELIVERED),
+    PAYMENT_CREATED("PurchaseStatusPaymentTemplate", WAITING_PAYMENT),
+    PAYMENT_ERROR("PurchaseStatusPaymentErrorTemplate", PAID_ERROR);
 
     private final List<PurchaseStatus> allowed;
     private final String template;
